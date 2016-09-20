@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import utils.*;
 
 
-
 public class MySqlConexion 
 {
 	
@@ -67,40 +66,3 @@ public class MySqlConexion
 		
 	}
 }
-    
-		
-	/* public void consultarDatos() throws SQLException
-    {
-        String instruccion = "SELECT * FROM tp_java.personajes";
-        try {
-            comando = conn.createStatement();           
-            resultados = comando.executeQuery(instruccion);
-        } catch (SQLException e) {            
-            e.printStackTrace();            
-            throw e;
-        }        
-    }
-	
-	 public void imprimirDatos() throws SQLException
-	    {
-	        int cod;
-	        int vida;
-	        String nombre;
-	        
-	        while(resultados.next())
-	        {
-	            try {            
-	                cod = resultados.getInt("cod_personaje");
-	                vida = resultados.getInt("vida");
-	                nombre = resultados.getString("nombre");
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	                throw e;
-	            }
-	            System.out.print(nombre + "\t\t\t");           
-	            System.out.print(vida+ "\t\t\t");
-	            System.out.print(nombre + "\n");     
-	        }    
-	    }
-}*/
-
