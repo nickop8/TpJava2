@@ -15,7 +15,8 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		PreparedStatement stmt=null;
 		
-		
+		//*no se si es aca pero a ptos_totales hay que inicializarlo con 200
+		//* Se va a ir restando a medida q le demos puntos a los demas atributos
 		try {
 			stmt=MySqlConexion.getInstancia().getConn().prepareStatement(
 					"insert into personajes(nom_personaje, vida, energia, defensa, evasion, ptos_totales)"+
