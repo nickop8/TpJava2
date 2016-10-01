@@ -254,48 +254,57 @@ public class ABMCPersonaje {
 			public boolean datosValidos(){
 				boolean valido=true;
 				int suma=0;
-				suma= Integer.parseInt(def.getText()) + Integer.parseInt(evasion.getText()) + Integer.parseInt(vida.getText()) + Integer.parseInt(energia.getText());
 				
-				if(!energia.getText().matches("[0-9]*"))
+				if(!energia.getText().matches("[0-9]*") || energia.getText().matches(""))
 				{
 				JOptionPane.showMessageDialog(null, "LA ENERGIA NO ES UN NUMERO");
 				 valido=false;
-				 energia.setText("0");
+				 energia.setText("0");}
 				
-				if((!def.getText().matches("[0-9]*")) || Integer.parseInt(def.getText())>=20 )
+				if(!def.getText().matches("[0-9]*") || def.getText().matches("") ||Integer.parseInt(def.getText())>20 )
 				{
-					JOptionPane.showMessageDialog(null, "DEFENSA MAYOR A 20 O NO ES UN NUMERO");
+					 JOptionPane.showMessageDialog(null, "DEFENSA MAYOR A 20 O NO ES UN NUMERO");
 					 valido=false;
 					 def.setText("0"); 
 				}
 				
-				if(!evasion.getText().matches("[0-9]*") || Integer.parseInt(evasion.getText())>=80)
+				if(!evasion.getText().matches("[0-9]*") || evasion.getText().matches("") || Integer.parseInt(evasion.getText())>80)
 				{
 				JOptionPane.showMessageDialog(null, "EVASION MAYOR A 80 o NO ES UN NUMERO");
 				 valido=false;
 				 evasion.setText("0");
 				}
 				
-				
-				}
-				if(!vida.getText().matches("[0-9]*"))
+				if(!vida.getText().matches("[0-9]*")|| vida.getText().matches(""))
 				{
 				JOptionPane.showMessageDialog(null, "LA VIDA NO ES UN NUMERO");
 				 valido=false;
 				 vida.setText("0");
 				}
 				
-				
-				if(suma>200)
+				if(nom.getText().matches("") || nom.getText().matches("Ingrese nombre") )
 				{
-				JOptionPane.showMessageDialog(null, "PUNTOS ASIGNADOS MAYORES A LOS TOTALES");
+				JOptionPane.showMessageDialog(null, "NO SE HA INGRESADO NOMBRE");
+				 valido=false;
+				 nom.setText("¡¡Ingresa nombre!!");
+				}
+				
+				if (valido==true)
+				{int resto=0;
+				 suma= Integer.parseInt(def.getText()) + Integer.parseInt(evasion.getText()) + Integer.parseInt(vida.getText()) + Integer.parseInt(energia.getText());
+				 if(suma>200)
+				 {
+				 JOptionPane.showMessageDialog(null, "PUNTOS ASIGNADOS MAYORES A LOS TOTALES");
 				 valido=false;
 				 energia.setText("0");
 				 def.setText("0");
 				 vida.setText("0");
 				 evasion.setText("0");
-				 
+				 }
+				 resto=Integer.parseInt(ptosTot.getText())-suma;
+				 JOptionPane.showMessageDialog(null, "Te sobran: "+resto+" puntos para asignar, podes modificar esos puntos en cualquier momento");
 				}
+				
 				return valido;
 				
 			}
