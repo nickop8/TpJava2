@@ -159,8 +159,10 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(btnModificar);
 		
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnBuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscar();
 			}
 		});
 		btnBuscar.setBounds(344, 192, 89, 23);
@@ -228,18 +230,32 @@ public class ABMCPersonaje {
 				
 				if(datosValidos()){
 					JOptionPane.showMessageDialog(null, "TODO OK");
-						/*Personaje p=MapearDeFormulario();
+						Personaje p=MapearDeFormulario();
 						ctrl.add(p);
-						MapearAFormulario(p);
-						//limpiarCampos();*/
-					 
-						
-					
+						//MapearAFormulario(p);
+						//limpiarCampos();
 				}
 			}
+			protected void buscar() {
+				Personaje p = ctrl.getPersonaje(MapearDeFormulario());
+				if(p!=null){
+					MapearAFormulario(p);
+				}
+			}
+
+			public void MapearAFormulario(Personaje p){
+				if(p.getCodigo()>0) cod.setText(String.valueOf(p.getCodigo()));
+				energia.setText(String.valueOf( p.getEnergia()));
+				def.setText(String.valueOf(p.getDefensa()));
+				vida.setText(String.valueOf(p.getVida()));
+				evasion.setText(String.valueOf( p.getEvasion()));
+				
+			}
+			
 			public Personaje MapearDeFormulario(){
 				Personaje p = new Personaje();
 				
+				p.setCodigo(Integer.parseInt(cod.getText()));
 				p.setEnergia(Integer.parseInt(energia.getText()));
 				p.setDefensa(Integer.parseInt(def.getText()));
 				p.setVida(Integer.parseInt(vida.getText()));
@@ -286,7 +302,7 @@ public class ABMCPersonaje {
 				{
 				JOptionPane.showMessageDialog(null, "NO SE HA INGRESADO NOMBRE");
 				 valido=false;
-				 nom.setText("¡¡Ingresa nombre!!");
+				 nom.setText("Ingresa nombre!!");
 				}
 				
 				if (valido==true)

@@ -12,8 +12,8 @@ public class MySqlConexion
 	private String driver="com.mysql.jdbc.Driver";
 	private String host="localhost";
 	private String port="3306";
-	private String user="java2016";
-	private String pass="java";
+	private String user="root";
+	private String pass="";
 	private String db="java2016";
 	private String dbType="mysql";
 	
@@ -61,7 +61,7 @@ public class MySqlConexion
 				conn.close();
 			}
 		} catch (SQLException e) {
-			throw new ApplicationException("Error al cerrar conexión",e);
+			throw new ApplicationException("Error al cerrar conexiï¿½n",e);
 		}
 		
 	}
