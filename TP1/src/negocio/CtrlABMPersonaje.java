@@ -19,9 +19,10 @@ public class CtrlABMPersonaje {
 	}
 	
 	public void add(Personaje p) {
-		if(datosValidos(p)){
+		dataPer.add(p);
+		/*if(datosValidos(p)){
 			dataPer.add(p);
-		}
+		}*/
 			
 	}
 	

@@ -153,6 +153,7 @@ public class ABMCPersonaje {
 				agregar();
 			}
 		});
+		btnCrear.setVisible(false);
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(344, 150, 89, 23);
@@ -201,7 +202,9 @@ public class ABMCPersonaje {
 		newPers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 					if (newPers.isSelected()==true)
-						{ptosTot.setText("200");
+						{
+						btnCrear.setVisible(true);
+						ptosTot.setText("200");
 						energia.setText("0");
 						def.setText("0");
 						vida.setText("0");
@@ -210,7 +213,8 @@ public class ABMCPersonaje {
 						 condEv.setText("Max 80 puntos");
 						 condDef.setText("Max 20 puntos");
 						 }
-					else{	ptosTot.setText("");
+					else{	btnCrear.setVisible(false);
+							ptosTot.setText("");
 							energia.setText("");
 							def.setText("");
 							vida.setText("");
@@ -255,7 +259,7 @@ public class ABMCPersonaje {
 			public Personaje MapearDeFormulario(){
 				Personaje p = new Personaje();
 				
-				p.setCodigo(Integer.parseInt(cod.getText()));
+				p.setCodigo(Integer.parseInt("0"));
 				p.setEnergia(Integer.parseInt(energia.getText()));
 				p.setDefensa(Integer.parseInt(def.getText()));
 				p.setVida(Integer.parseInt(vida.getText()));
