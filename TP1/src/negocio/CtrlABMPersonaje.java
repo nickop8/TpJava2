@@ -34,8 +34,8 @@ public class CtrlABMPersonaje {
 		dataPer.delete(p);
 	}
 	
-	public Personaje getPersonaje (Personaje p){
-		return dataPer.getByCodigo(p);
+	public Personaje getPersonaje (String nom){
+		return dataPer.getByNombre(nom);
 	}
 	
 
@@ -59,7 +59,7 @@ public class CtrlABMPersonaje {
 
 		if (valido==true)
 		{
-		int resto=0;
+		//int resto=0;
 		 suma= p.getDefensa() + p.getEvasion() + p.getVida() + p.getEnergia();
 			 if(suma>200)
 			 {

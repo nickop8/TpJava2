@@ -15,8 +15,7 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		PreparedStatement stmt=null;
 		
-		//*no se si es aca pero a ptos_totales hay que inicializarlo con 200
-		//* Se va a ir restando a medida q le demos puntos a los demas atributos
+		
 		try {
 			stmt=MySqlConexion.getInstancia().getConn().prepareStatement(
 					"insert into personajes(nom_personaje, vida, energia, defensa, evasion, ptos_totales)"+
@@ -141,7 +140,7 @@ public class DataPersonaje {
 	}
 	
 	
-	public Personaje getByCodigo(Personaje per){
+	public Personaje getByNombre(String nom){
 		
 		Personaje p=null;
 		
@@ -150,8 +149,8 @@ public class DataPersonaje {
 		try {
 			stmt = MySqlConexion.getInstancia().getConn().prepareStatement(
 					"select cod_personaje, nom_personaje, vida, energia, defensa, evasion, ptos_totales from personajes"+
-			" where cod_personaje=?");
-			stmt.setInt(1, per.getCodigo());
+			" where nom_personaje=?");
+			stmt.setString(1, nom);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p=new Personaje();

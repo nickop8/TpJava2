@@ -42,6 +42,7 @@ public class ABMCPersonaje {
 	
 	private CtrlABMPersonaje ctrl;
 	
+	
 
 
 	/**
@@ -82,10 +83,12 @@ public class ABMCPersonaje {
 		cod.setBounds(84, 59, 40, 20);
 		frame.getContentPane().add(cod);
 		cod.setColumns(10);
+		//cod.setVisible(false);
 		
 		JLabel lblCodigo = new JLabel("Codigo:  ");
 		lblCodigo.setBounds(30, 62, 55, 14);
 		frame.getContentPane().add(lblCodigo);
+		
 		
 		JLabel lblNombre = new JLabel("Nombre:  ");
 		lblNombre.setBounds(150, 62, 55, 14);
@@ -147,17 +150,19 @@ public class ABMCPersonaje {
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.setBounds(344, 104, 89, 23);
 		frame.getContentPane().add(btnCrear);
-		btnCrear.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				agregar();
-			}
-		});
+		
 		btnCrear.setVisible(false);
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(344, 150, 89, 23);
 		frame.getContentPane().add(btnModificar);
+		btnModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				modificar();
+			}
+		});
+		
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addMouseListener(new MouseAdapter() {
@@ -199,10 +204,13 @@ public class ABMCPersonaje {
 		});
 		exit.setBounds(199, 261, 89, 23);
 		frame.getContentPane().add(exit);
+		
 		newPers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 					if (newPers.isSelected()==true)
 						{
+						cod.setVisible(false);
+						lblCodigo.setVisible(false);
 						btnCrear.setVisible(true);
 						ptosTot.setText("200");
 						energia.setText("0");
@@ -214,6 +222,8 @@ public class ABMCPersonaje {
 						 condDef.setText("Max 20 puntos");
 						 }
 					else{	btnCrear.setVisible(false);
+							cod.setVisible(true);
+							lblCodigo.setVisible(true);
 							ptosTot.setText("");
 							energia.setText("");
 							def.setText("");
@@ -226,50 +236,82 @@ public class ABMCPersonaje {
 			}
 		});
 		
+		btnCrear.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				agregar();
+				newPers.setSelected(false);
+				condEv.setText("");
+				condDef.setText("");
+				limpiarCampos();
+			}
+		});
+		
 
 	};
 ///METODOS/////////////////////	
 			protected void agregar() {
-				
-				
 				if(datosValidos()){
-					JOptionPane.showMessageDialog(null, "TODO OK");
+					//JOptionPane.showMessageDialog(null, "TODO OK");
 						Personaje p=MapearDeFormulario();
 						ctrl.add(p);
 						//MapearAFormulario(p);
-						//limpiarCampos();
+						
 				}
 			}
 			protected void buscar() {
-				Personaje p = ctrl.getPersonaje(MapearDeFormulario());
+				Personaje p = ctrl.getPersonaje(nom.getText());
 				if(p!=null){
 					MapearAFormulario(p);
 				}
+				else 
+				{JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre");
+				 nom.setText("");
+				 }
+			}
+			
+			protected void modificar() {
+				Personaje p=MapearDeFormulario();
+				/*if(p!=null)
+				JOptionPane.showMessageDialog(null, "Nombre: "+p.getNombre()+" Energia:");*/
 			}
 
 			public void MapearAFormulario(Personaje p){
-				if(p.getCodigo()>0) cod.setText(String.valueOf(p.getCodigo()));
+				if(p.getNombre()!=null) 
+				{cod.setText(String.valueOf(p.getCodigo()));
 				energia.setText(String.valueOf( p.getEnergia()));
 				def.setText(String.valueOf(p.getDefensa()));
 				vida.setText(String.valueOf(p.getVida()));
 				evasion.setText(String.valueOf( p.getEvasion()));
+				ptosTot.setText(String.valueOf(p.getPtos_totales()));
+				}
 				
 			}
 			
 			public Personaje MapearDeFormulario(){
 				Personaje p = new Personaje();
 				
-				p.setCodigo(Integer.parseInt("0"));
+				//p.setCodigo(Integer.parseInt("0"));
 				p.setEnergia(Integer.parseInt(energia.getText()));
 				p.setDefensa(Integer.parseInt(def.getText()));
 				p.setVida(Integer.parseInt(vida.getText()));
 				p.setEvasion(Integer.parseInt(evasion.getText()));
 				p.setNombre(nom.getText());
-				
-				
+				p.setPtos_totales(Integer.parseInt(ptosTot.getText()));
 				return p;
 			}
+			protected void limpiarCampos(){	
+			{	
+			ptosTot.setText("");
+			energia.setText("");
+			def.setText("");
+			vida.setText("");
+			evasion.setText("");
+			nom.setText("");
 			
+			
+		};
+}
 			
 			public boolean datosValidos(){
 				boolean valido=true;
@@ -322,12 +364,16 @@ public class ABMCPersonaje {
 				 evasion.setText("0");
 				 }
 				 resto=Integer.parseInt(ptosTot.getText())-suma;
+				 ptosTot.setText(String.valueOf(suma));
 				 JOptionPane.showMessageDialog(null, "Te sobran: "+resto+" puntos para asignar, podes modificar esos puntos en cualquier momento");
+				 
 				}
 				
 				return valido;
 				
 			}
+			
+			
 
 ///METODOS/////////////////////		
 			
