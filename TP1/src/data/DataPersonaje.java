@@ -2,6 +2,9 @@ package data;
 
 
 import java.sql.*;
+
+import javax.swing.JOptionPane;
+
 import entidades.*;
 import utils.ApplicationException;
 
@@ -65,11 +68,12 @@ public class DataPersonaje {
 	
 	public void update(Personaje p){
 		PreparedStatement stmt=null;
+		ResultSet rs=null;
 		
 		try {
 			stmt= MySqlConexion.getInstancia().getConn().prepareStatement(
-					"update personajes set nom_personaje=?, vida=?, energia=?, defensa=?, evasion=?, ptos_totales=?,"+
-					" where cod_personaje=?");
+					"update personajes set nom_personaje=?, vida=?, energia=?, defensa=?, evasion=?, ptos_totales=?"+
+					" where nom_personaje=?");
 			
 			stmt.setString(1, p.getNombre());
 			stmt.setInt(2, p.getVida());
@@ -77,9 +81,9 @@ public class DataPersonaje {
 			stmt.setInt(4, p.getDefensa());
 			stmt.setInt(5, p.getEvasion());
 			stmt.setInt(6, p.getPtos_totales());
-			stmt.setInt(7, p.getCodigo());
+			stmt.setString(7, p.getNombre());	
+			
 			stmt.execute();
-					
 		} 
 		catch (SQLException e) {
 			

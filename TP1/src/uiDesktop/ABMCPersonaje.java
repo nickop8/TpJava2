@@ -266,12 +266,14 @@ public class ABMCPersonaje {
 				}
 				else 
 				{JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre");
-				 nom.setText("");
+				 limpiarCampos();
 				 }
 			}
 			
 			protected void modificar() {
 				Personaje p=MapearDeFormulario();
+				ctrl.update(p);
+				limpiarCampos();
 				/*if(p!=null)
 				JOptionPane.showMessageDialog(null, "Nombre: "+p.getNombre()+" Energia:");*/
 			}
@@ -297,7 +299,9 @@ public class ABMCPersonaje {
 				p.setVida(Integer.parseInt(vida.getText()));
 				p.setEvasion(Integer.parseInt(evasion.getText()));
 				p.setNombre(nom.getText());
-				p.setPtos_totales(Integer.parseInt(ptosTot.getText()));
+				int suma=0;
+				suma=p.getEnergia()+p.getDefensa()+p.getVida()+p.getEvasion();
+				p.setPtos_totales(suma);
 				return p;
 			}
 			protected void limpiarCampos(){	
@@ -308,6 +312,7 @@ public class ABMCPersonaje {
 			vida.setText("");
 			evasion.setText("");
 			nom.setText("");
+			cod.setText("");
 			
 			
 		};
