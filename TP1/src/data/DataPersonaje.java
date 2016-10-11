@@ -66,9 +66,8 @@ public class DataPersonaje {
 	}
 	
 	
-	public void update(Personaje p){
+	public void update(Personaje p, String nom){
 		PreparedStatement stmt=null;
-		ResultSet rs=null;
 		
 		try {
 			stmt= MySqlConexion.getInstancia().getConn().prepareStatement(
@@ -81,7 +80,7 @@ public class DataPersonaje {
 			stmt.setInt(4, p.getDefensa());
 			stmt.setInt(5, p.getEvasion());
 			stmt.setInt(6, p.getPtos_totales());
-			stmt.setString(7, p.getNombre());	
+			stmt.setString(7, nom);	
 			
 			stmt.execute();
 		} 
@@ -111,14 +110,19 @@ public class DataPersonaje {
 	}
 	
 	
-	public void delete(Personaje p){
+	public void delete(int cod, String nom){
 		PreparedStatement stmt=null;
+		
 		
 		try {
 			stmt = MySqlConexion.getInstancia().getConn().prepareStatement(
-					"delete from personajes where cod_personaje=?");
-			stmt.setInt(1, p.getCodigo());
+					"DELETE FROM personajes WHERE cod_personaje=? and nom_personaje=?");
+			stmt.setInt(1, cod);
+			stmt.setString(2, nom);
+
+			
 			stmt.execute();
+			MySqlConexion.getInstancia().getConn().close();
 		} 
 		catch (SQLException e) {
 
@@ -192,4 +196,140 @@ public class DataPersonaje {
 		}		
 		return p;
 	}
+	
+	public Personaje getByCodigo(int cod){
+		
+		Personaje p=null;
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = MySqlConexion.getInstancia().getConn().prepareStatement(
+					"select cod_personaje, nom_personaje, vida, energia, defensa, evasion, ptos_totales from personajes"+
+			" where cod_personaje=?");
+			stmt.setInt(1, cod);
+			rs= stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				p=new Personaje();
+				p.setCodigo(rs.getInt("cod_personaje"));				
+				p.setNombre(rs.getString("nom_personaje"));
+				p.setVida(rs.getInt("vida"));
+				p.setEnergia(rs.getInt("energia"));
+				p.setDefensa(rs.getInt("defensa"));
+				p.setEvasion(rs.getInt("evasion"));
+				p.setPtos_totales(rs.getInt("ptos_totales"));
+			}
+		} 
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+		} 
+		catch (ApplicationException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)
+					rs.close();
+				if(stmt!=null)
+					stmt.close();
+				MySqlConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				
+				e.printStackTrace();
+			}
+		}		
+		return p;
+	}
+	
+	public boolean coincideNombre(String nom){
+		
+		
+		boolean coincide=false;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = MySqlConexion.getInstancia().getConn().prepareStatement(
+					"select cod_personaje, nom_personaje, vida, energia, defensa, evasion, ptos_totales from personajes"+
+			" where nom_personaje=?");
+			stmt.setString(1, nom);
+			rs= stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				coincide=true;
+			}
+		} 
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+		} 
+		catch (ApplicationException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)
+					rs.close();
+				if(stmt!=null)
+					stmt.close();
+				MySqlConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				
+				e.printStackTrace();
+			}
+		}		
+		return coincide;
+	}
+
+	public boolean coincideCodigoNom(int cod, String nom){
+	
+	
+	boolean coincide=false;
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	try {
+		stmt = MySqlConexion.getInstancia().getConn().prepareStatement(
+				"select cod_personaje, nom_personaje, vida, energia, defensa, evasion, ptos_totales from personajes"+
+		" where cod_personaje=? and nom_personaje=?");
+		stmt.setInt(1, cod);
+		stmt.setString(2, nom);
+		rs= stmt.executeQuery();
+		if(rs!=null && rs.next()){
+			coincide=true;
+		}
+	} 
+	catch (SQLException e) {
+		
+		e.printStackTrace();
+	} 
+	catch (ApplicationException e) {
+		
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			if(rs!=null)
+				rs.close();
+			if(stmt!=null)
+				stmt.close();
+			MySqlConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			
+			e.printStackTrace();
+		}
+	}		
+	return coincide;
 }
+}
+
+

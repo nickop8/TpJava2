@@ -29,6 +29,7 @@ import org.omg.CORBA.portable.ApplicationException;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 public class ABMCPersonaje {
 
 	private JFrame frame;
@@ -41,6 +42,8 @@ public class ABMCPersonaje {
 	private JTextField ptosTot;
 	
 	private CtrlABMPersonaje ctrl;
+	private JTextField ptosDisp;
+	public int creo=0;
 	
 	
 
@@ -104,7 +107,7 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(lblEnergia);
 		
 		JLabel lblDefensa = new JLabel("Defensa");
-		lblDefensa.setBounds(42, 132, 46, 14);
+		lblDefensa.setBounds(41, 132, 58, 14);
 		frame.getContentPane().add(lblDefensa);
 		
 		JLabel lblVida = new JLabel("Vida");
@@ -136,7 +139,7 @@ public class ABMCPersonaje {
 		def.setColumns(10);
 		
 		ptosTot = new JTextField();
-		ptosTot.setBounds(94, 210, 34, 20);
+		ptosTot.setBounds(94, 208, 34, 20);
 		frame.getContentPane().add(ptosTot);
 		//textField_6.setText("200");
 		ptosTot.setColumns(10);
@@ -144,7 +147,7 @@ public class ABMCPersonaje {
 		
 		
 		JLabel lblPuntosTotales = new JLabel("Puntos Totales");
-		lblPuntosTotales.setBounds(73, 233, 104, 20);
+		lblPuntosTotales.setBounds(10, 208, 104, 20);
 		frame.getContentPane().add(lblPuntosTotales);
 		
 		JButton btnCrear = new JButton("Crear");
@@ -177,6 +180,12 @@ public class ABMCPersonaje {
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(344, 232, 89, 23);
 		frame.getContentPane().add(btnBorrar);
+		btnBorrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				borrar();
+			}
+		});
 		
 		JTextPane condDef = new JTextPane();
 		condDef.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -205,26 +214,48 @@ public class ABMCPersonaje {
 		exit.setBounds(199, 261, 89, 23);
 		frame.getContentPane().add(exit);
 		
-		newPers.addActionListener(new ActionListener(){
+		JButton btnLimpiarCampos = new JButton("Limpiar Campos");
+		btnLimpiarCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				limpiarCampos();
+			}
+		});
+		btnLimpiarCampos.setBounds(190, 209, 113, 23);
+		frame.getContentPane().add(btnLimpiarCampos);
+		
+		ptosDisp = new JTextField();
+		ptosDisp.setBounds(94, 245, 40, 20);
+		frame.getContentPane().add(ptosDisp);
+		ptosDisp.setColumns(10);
+		
+		JLabel lblPuntosDisponibles = new JLabel("Puntos Disp");
+		lblPuntosDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPuntosDisponibles.setBounds(10, 239, 75, 28);
+		frame.getContentPane().add(lblPuntosDisponibles);
+		
+		newPers.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
 					if (newPers.isSelected()==true)
 						{
-						cod.setVisible(false);
-						lblCodigo.setVisible(false);
-						btnCrear.setVisible(true);
-						ptosTot.setText("200");
-						energia.setText("0");
-						def.setText("0");
-						vida.setText("0");
-						evasion.setText("0");
-						nom.setText("Ingrese nombre");
-						 condEv.setText("Max 80 puntos");
-						 condDef.setText("Max 20 puntos");
+							cod.setVisible(false);
+							lblCodigo.setVisible(false);
+							btnCrear.setVisible(true);
+							ptosDisp.setText("200");
+							ptosTot.setText("0");
+							energia.setText("0");
+							def.setText("0");
+							vida.setText("0");
+							evasion.setText("0");
+							nom.setText("Ingrese nombre");
+							condEv.setText("Max 80 puntos");
+							condDef.setText("Max 20 puntos");
 						 }
 					else{	btnCrear.setVisible(false);
 							cod.setVisible(true);
 							lblCodigo.setVisible(true);
 							ptosTot.setText("");
+							ptosDisp.setText("");
 							energia.setText("");
 							def.setText("");
 							vida.setText("");
@@ -239,11 +270,16 @@ public class ABMCPersonaje {
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				creo=1;
 				agregar();
 				newPers.setSelected(false);
 				condEv.setText("");
 				condDef.setText("");
 				limpiarCampos();
+				creo=0;
+				cod.setVisible(true);
+				lblCodigo.setVisible(true);
+				btnCrear.setVisible(false);
 			}
 		});
 		
@@ -251,7 +287,7 @@ public class ABMCPersonaje {
 	};
 ///METODOS/////////////////////	
 			protected void agregar() {
-				if(datosValidos()){
+				if(datosValidos(creo)){
 					//JOptionPane.showMessageDialog(null, "TODO OK");
 						Personaje p=MapearDeFormulario();
 						ctrl.add(p);
@@ -260,32 +296,63 @@ public class ABMCPersonaje {
 				}
 			}
 			protected void buscar() {
-				Personaje p = ctrl.getPersonaje(nom.getText());
-				if(p!=null){
-					MapearAFormulario(p);
-				}
-				else 
-				{JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre");
+				//creo=1;
+				if(!nom.getText().matches(""))
+					{	
+						Personaje p = ctrl.getPersonaje(nom.getText());
+						if(p!=null) MapearAFormulario(p);
+						else JOptionPane.showMessageDialog(null, "No se encontro el nombre del personaje");
+					}	
+				if(!cod.getText().matches(""))
+					{	
+						Personaje p = ctrl.getPersonaje(Integer.parseInt(cod.getText()));
+						if(p!=null) MapearAFormulario(p);
+						else JOptionPane.showMessageDialog(null, "No se encontro el codigo del personaje");
+					}
+				if (cod.getText().matches("") && nom.getText().matches("") )
+				{JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre o un codigo");
 				 limpiarCampos();
 				 }
+				
 			}
 			
 			protected void modificar() {
-				Personaje p=MapearDeFormulario();
-				ctrl.update(p);
-				limpiarCampos();
-				/*if(p!=null)
-				JOptionPane.showMessageDialog(null, "Nombre: "+p.getNombre()+" Energia:");*/
-			}
+				if(cod.getText().matches("")) cod.setText("0");
+				if (datosValidos(creo))
+				{
+					Personaje po = ctrl.getPersonaje(Integer.parseInt(cod.getText()));
+					if(po!=null)	MapearAFormulario(po);
+					
+					/*	po tiene el personaje con su nombre antiguo, esto lo hago por si tambien decido cambiarle su nombre ademas de los atributos
+						p va a tener el nuevo nombre (si es que lo cambie) y los atributos nuevos
+				 		a update le doy el personaje modificado y el nombre del personaje original para que lo busque y modifique ese personaje*/
+					Personaje p=MapearDeFormulario();
+					ctrl.update(p, po.getNombre());
+					limpiarCampos();}
+					/*if(p!=null)
+					JOptionPane.showMessageDialog(null, "Nombre: "+p.getNombre()+" Energia:");*/
+				}
 
+			protected void borrar() {
+				//if(datosValidos()){
+				//Personaje p=MapearDeFormulario();
+				
+				ctrl.delete(Integer.parseInt(cod.getText()),nom.getText());
+				JOptionPane.showMessageDialog(null, "PERSONAJE ELIMINADO: " + nom.getText() + " CORRECTAMENTE");
+				limpiarCampos();
+						//MapearAFormulario(p);
+				//}
+			}
+				
 			public void MapearAFormulario(Personaje p){
-				if(p.getNombre()!=null) 
-				{cod.setText(String.valueOf(p.getCodigo()));
-				energia.setText(String.valueOf( p.getEnergia()));
-				def.setText(String.valueOf(p.getDefensa()));
-				vida.setText(String.valueOf(p.getVida()));
-				evasion.setText(String.valueOf( p.getEvasion()));
-				ptosTot.setText(String.valueOf(p.getPtos_totales()));
+				if(p.getNombre()!=null || p.getCodigo()!=0) 
+				{	cod.setText(String.valueOf(p.getCodigo()));
+					nom.setText(String.valueOf(p.getNombre()));
+					energia.setText(String.valueOf( p.getEnergia()));
+					def.setText(String.valueOf(p.getDefensa()));
+					vida.setText(String.valueOf(p.getVida()));
+					evasion.setText(String.valueOf( p.getEvasion()));
+					ptosTot.setText(String.valueOf(p.getPtos_totales()));
 				}
 				
 			}
@@ -293,7 +360,7 @@ public class ABMCPersonaje {
 			public Personaje MapearDeFormulario(){
 				Personaje p = new Personaje();
 				
-				//p.setCodigo(Integer.parseInt("0"));
+				p.setCodigo(Integer.parseInt("0"));
 				p.setEnergia(Integer.parseInt(energia.getText()));
 				p.setDefensa(Integer.parseInt(def.getText()));
 				p.setVida(Integer.parseInt(vida.getText()));
@@ -304,49 +371,57 @@ public class ABMCPersonaje {
 				p.setPtos_totales(suma);
 				return p;
 			}
+			
 			protected void limpiarCampos(){	
-			{	
-			ptosTot.setText("");
-			energia.setText("");
-			def.setText("");
-			vida.setText("");
-			evasion.setText("");
-			nom.setText("");
-			cod.setText("");
+				{	
+					ptosTot.setText("");
+					ptosDisp.setText("");
+					energia.setText("");
+					def.setText("");
+					vida.setText("");
+					evasion.setText("");
+					nom.setText("");
+					cod.setText("");
 			
 			
-		};
-}
+				};
+			}
 			
-			public boolean datosValidos(){
+			public boolean datosValidos(int creo){
 				boolean valido=true;
+				boolean coincideNom=false;
+				boolean coincideCodNom=false;
 				int suma=0;
+				//Font fuente =new Font("Serief",Font.BOLD|Font.ITALIC,14);
+				   
+				
 				
 				if(!energia.getText().matches("[0-9]*") || energia.getText().matches(""))
 				{
 				JOptionPane.showMessageDialog(null, "LA ENERGIA NO ES UN NUMERO");
 				 valido=false;
-				 energia.setText("0");}
+				// energia.setFont(fuente);
+				}
 				
 				if(!def.getText().matches("[0-9]*") || def.getText().matches("") ||Integer.parseInt(def.getText())>20 )
 				{
 					 JOptionPane.showMessageDialog(null, "DEFENSA MAYOR A 20 O NO ES UN NUMERO");
 					 valido=false;
-					 def.setText("0"); 
+					// def.setText("0"); 
 				}
 				
 				if(!evasion.getText().matches("[0-9]*") || evasion.getText().matches("") || Integer.parseInt(evasion.getText())>80)
 				{
 				JOptionPane.showMessageDialog(null, "EVASION MAYOR A 80 o NO ES UN NUMERO");
 				 valido=false;
-				 evasion.setText("0");
+				 //evasion.setText("0");
 				}
 				
 				if(!vida.getText().matches("[0-9]*")|| vida.getText().matches(""))
 				{
 				JOptionPane.showMessageDialog(null, "LA VIDA NO ES UN NUMERO");
 				 valido=false;
-				 vida.setText("0");
+				 //vida.setText("0");
 				}
 				
 				if(nom.getText().matches("") || nom.getText().matches("Ingrese nombre") )
@@ -356,33 +431,47 @@ public class ABMCPersonaje {
 				 nom.setText("Ingresa nombre!!");
 				}
 				
+				coincideNom= ctrl.coincideNombre(nom.getText());
+				if(creo==0) 
+				{	coincideCodNom= ctrl.coincideCodNom(Integer.parseInt(cod.getText()), nom.getText());
+					if (coincideCodNom==false && coincideNom==true) 
+					{JOptionPane.showMessageDialog(null, "No coincide Nombre con el codigo pero si esta en la BD");
+					valido=false;
+					}
+				}
+				
+				if (coincideNom==true && creo==1)
+				{ 	valido=false;
+					JOptionPane.showMessageDialog(null, "Ya existe nombre en BD");
+				}
+				
+				
+				
 				if (valido==true)
-				{int resto=0;
-				 suma= Integer.parseInt(def.getText()) + Integer.parseInt(evasion.getText()) + Integer.parseInt(vida.getText()) + Integer.parseInt(energia.getText());
-				 if(suma>200)
-				 {
-				 JOptionPane.showMessageDialog(null, "PUNTOS ASIGNADOS MAYORES A LOS TOTALES");
-				 valido=false;
-				 energia.setText("0");
-				 def.setText("0");
-				 vida.setText("0");
-				 evasion.setText("0");
-				 }
-				 resto=Integer.parseInt(ptosTot.getText())-suma;
-				 ptosTot.setText(String.valueOf(suma));
-				 JOptionPane.showMessageDialog(null, "Te sobran: "+resto+" puntos para asignar, podes modificar esos puntos en cualquier momento");
-				 
+				{	int resto=0;
+				 	suma= Integer.parseInt(def.getText()) + Integer.parseInt(evasion.getText()) + Integer.parseInt(vida.getText()) + Integer.parseInt(energia.getText());
+				 	if(suma>200)
+				 	{
+				 		JOptionPane.showMessageDialog(null, "PUNTOS ASIGNADOS MAYORES A LOS TOTALES");
+				 		valido=false;
+				 		//energia.setText("0");
+				 		//def.setText("0");
+				 		//vida.setText("0");
+				 		//evasion.setText("0");
+				 	}
+				 	resto=200-suma;
+				 	if (resto>=0)
+				 	{	ptosTot.setText(String.valueOf(suma));
+				 		ptosDisp.setText(String.valueOf(resto));
+				 		JOptionPane.showMessageDialog(null, "Te sobran: "+resto+" puntos para asignar, podes modificar esos puntos en cualquier momento");
+				 	}
+				 	else JOptionPane.showMessageDialog(null, "Te excediste: "+ -(resto)+" puntos");
 				}
 				
 				return valido;
 				
 			}
-			
-			
-
-///METODOS/////////////////////		
-			
-};
+}
 		
 	
 		

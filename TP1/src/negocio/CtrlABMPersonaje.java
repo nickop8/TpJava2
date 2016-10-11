@@ -26,18 +26,30 @@ public class CtrlABMPersonaje {
 			
 	}
 	
-	public void update(Personaje p){
-		dataPer.update(p);
+	public void update(Personaje p, String nom){
+		dataPer.update(p, nom);
 	}
 	
-	public void delete(Personaje p){
-		dataPer.delete(p);
+	public void delete(int cod, String nom){
+		dataPer.delete(cod, nom);
 	}
 	
 	public Personaje getPersonaje (String nom){
 		return dataPer.getByNombre(nom);
 	}
 	
+	public Personaje getPersonaje (int cod){
+		return dataPer.getByCodigo(cod);
+	}
+	
+	public boolean coincideNombre (String nom){
+		return dataPer.coincideNombre(nom);
+	}
+	
+	public boolean coincideCodNom (int cod, String nom){
+		return dataPer.coincideCodigoNom(cod, nom);
+	}
+
 
 	//Validar datos del personaje antes de la carga al la bd
 	public boolean datosValidos(Personaje p){
