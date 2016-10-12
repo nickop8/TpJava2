@@ -151,13 +151,13 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(lblPuntosTotales);
 		
 		JButton btnCrear = new JButton("Crear");
-		btnCrear.setBounds(344, 104, 89, 23);
+		btnCrear.setBounds(355, 128, 89, 23);
 		frame.getContentPane().add(btnCrear);
 		
 		btnCrear.setVisible(false);
 		
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(344, 150, 89, 23);
+		btnModificar.setBounds(355, 103, 89, 23);
 		frame.getContentPane().add(btnModificar);
 		btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -167,18 +167,22 @@ public class ABMCPersonaje {
 		});
 		
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				buscar();
+		JButton btnBuscarPorNombre = new JButton("Buscar Por Nombre");
+		btnBuscarPorNombre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnBuscar.setBounds(344, 192, 89, 23);
-		frame.getContentPane().add(btnBuscar);
+		btnBuscarPorNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscarPorNombre();
+			}
+		});
+		btnBuscarPorNombre.setBounds(326, 128, 135, 23);
+		frame.getContentPane().add(btnBuscarPorNombre);
 		
 		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(344, 232, 89, 23);
+		btnBorrar.setBounds(355, 190, 89, 23);
 		frame.getContentPane().add(btnBorrar);
 		btnBorrar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -233,6 +237,16 @@ public class ABMCPersonaje {
 		lblPuntosDisponibles.setBounds(10, 239, 75, 28);
 		frame.getContentPane().add(lblPuntosDisponibles);
 		
+		JButton btnBuscarPorCodigo = new JButton("Buscar Por Codigo");
+		btnBuscarPorCodigo.setBounds(326, 176, 135, 23);
+		frame.getContentPane().add(btnBuscarPorCodigo);
+		btnBuscarPorCodigo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscarPorCodigo();
+			}
+		});
+		
 		newPers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -241,6 +255,10 @@ public class ABMCPersonaje {
 							cod.setVisible(false);
 							lblCodigo.setVisible(false);
 							btnCrear.setVisible(true);
+							btnBuscarPorCodigo.setVisible(false);
+							btnBuscarPorNombre.setVisible(false);
+							btnBorrar.setVisible(false);
+							btnModificar.setVisible(false);
 							ptosDisp.setText("200");
 							ptosTot.setText("0");
 							energia.setText("0");
@@ -254,6 +272,10 @@ public class ABMCPersonaje {
 					else{	btnCrear.setVisible(false);
 							cod.setVisible(true);
 							lblCodigo.setVisible(true);
+							btnBuscarPorCodigo.setVisible(true);
+							btnBuscarPorNombre.setVisible(true);
+							btnBorrar.setVisible(true);
+							btnModificar.setVisible(true);
 							ptosTot.setText("");
 							ptosDisp.setText("");
 							energia.setText("");
@@ -280,6 +302,10 @@ public class ABMCPersonaje {
 				cod.setVisible(true);
 				lblCodigo.setVisible(true);
 				btnCrear.setVisible(false);
+				btnBuscarPorCodigo.setVisible(true);
+				btnBuscarPorNombre.setVisible(true);
+				btnBorrar.setVisible(true);
+				btnModificar.setVisible(true);
 			}
 		});
 		
@@ -295,24 +321,32 @@ public class ABMCPersonaje {
 						
 				}
 			}
-			protected void buscar() {
+			protected void buscarPorNombre() {
 				//creo=1;
 				if(!nom.getText().matches(""))
 					{	
 						Personaje p = ctrl.getPersonaje(nom.getText());
 						if(p!=null) MapearAFormulario(p);
 						else JOptionPane.showMessageDialog(null, "No se encontro el nombre del personaje");
-					}	
+					}
+				else
+					{
+						JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre");
+						limpiarCampos();
+					}
+			}
+			protected void buscarPorCodigo() {	
 				if(!cod.getText().matches(""))
 					{	
 						Personaje p = ctrl.getPersonaje(Integer.parseInt(cod.getText()));
 						if(p!=null) MapearAFormulario(p);
 						else JOptionPane.showMessageDialog(null, "No se encontro el codigo del personaje");
 					}
-				if (cod.getText().matches("") && nom.getText().matches("") )
-				{JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre o un codigo");
-				 limpiarCampos();
-				 }
+				else
+					{
+						JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un codigo");
+						limpiarCampos();
+					}
 				
 			}
 			
