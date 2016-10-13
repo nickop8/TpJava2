@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JLayeredPane;
 public class ABMCPersonaje {
 
 	private JFrame frame;
@@ -78,187 +79,169 @@ public class ABMCPersonaje {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 508, 333);
+		frame.setBounds(100, 100, 513, 386);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		cod = new JTextField();
-		cod.setBounds(84, 59, 40, 20);
+		cod.setBounds(88, 97, 40, 20);
 		frame.getContentPane().add(cod);
 		cod.setColumns(10);
-		//cod.setVisible(false);
-		
+				
 		JLabel lblCodigo = new JLabel("Codigo:  ");
-		lblCodigo.setBounds(30, 62, 55, 14);
+		lblCodigo.setBounds(34, 100, 55, 14);
 		frame.getContentPane().add(lblCodigo);
 		
 		
 		JLabel lblNombre = new JLabel("Nombre:  ");
-		lblNombre.setBounds(150, 62, 55, 14);
+		lblNombre.setBounds(172, 100, 55, 14);
 		frame.getContentPane().add(lblNombre);
 		
 		nom = new JTextField();
-		nom.setBounds(200, 59, 145, 20);
+		nom.setBounds(237, 97, 145, 20);
 		frame.getContentPane().add(nom);
 		nom.setColumns(10);
 		
 		JLabel lblEnergia = new JLabel("Energia");
-		lblEnergia.setBounds(42, 107, 46, 14);
+		lblEnergia.setBounds(42, 160, 46, 14);
 		frame.getContentPane().add(lblEnergia);
 		
 		JLabel lblDefensa = new JLabel("Defensa");
-		lblDefensa.setBounds(41, 132, 58, 14);
+		lblDefensa.setBounds(41, 185, 58, 14);
 		frame.getContentPane().add(lblDefensa);
 		
 		JLabel lblVida = new JLabel("Vida");
-		lblVida.setBounds(42, 157, 46, 14);
+		lblVida.setBounds(42, 210, 46, 14);
 		frame.getContentPane().add(lblVida);
 		
 		JLabel lblEvasion = new JLabel("Evasion");
-		lblEvasion.setBounds(42, 180, 46, 14);
+		lblEvasion.setBounds(42, 233, 46, 14);
 		frame.getContentPane().add(lblEvasion);
 		
+		JLabel lblPuntosDisponibles = new JLabel("Puntos Disp");
+		lblPuntosDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPuntosDisponibles.setBounds(10, 292, 75, 28);
+		frame.getContentPane().add(lblPuntosDisponibles);
+		
 		energia = new JTextField();
-		energia.setBounds(94, 104, 34, 20);
+		energia.setBounds(94, 157, 34, 20);
 		frame.getContentPane().add(energia);
 		energia.setColumns(10);
 		
 		vida = new JTextField();
 		vida.setColumns(10);
-		vida.setBounds(94, 154, 34, 20);
+		vida.setBounds(94, 207, 34, 20);
 		frame.getContentPane().add(vida);
 		
 		evasion = new JTextField();
 		evasion.setColumns(10);
-		evasion.setBounds(94, 177, 34, 20);
+		evasion.setBounds(94, 230, 34, 20);
 		frame.getContentPane().add(evasion);
 		
 		def = new JTextField();
-		def.setBounds(93, 129, 35, 20);
+		def.setBounds(93, 182, 35, 20);
 		frame.getContentPane().add(def);
 		def.setColumns(10);
 		
 		ptosTot = new JTextField();
-		ptosTot.setBounds(94, 208, 34, 20);
+		ptosTot.setBounds(94, 261, 34, 20);
 		frame.getContentPane().add(ptosTot);
-		//textField_6.setText("200");
 		ptosTot.setColumns(10);
 		
-		
-		
+		ptosDisp = new JTextField();
+		ptosDisp.setBounds(94, 298, 40, 20);
+		frame.getContentPane().add(ptosDisp);
+		ptosDisp.setColumns(10);
+				
 		JLabel lblPuntosTotales = new JLabel("Puntos Totales");
-		lblPuntosTotales.setBounds(10, 208, 104, 20);
+		lblPuntosTotales.setBounds(10, 261, 104, 20);
 		frame.getContentPane().add(lblPuntosTotales);
 		
-		JButton btnCrear = new JButton("Crear");
-		btnCrear.setBounds(355, 128, 89, 23);
-		frame.getContentPane().add(btnCrear);
 		
-		btnCrear.setVisible(false);
-		
+				
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(355, 103, 89, 23);
+		btnModificar.setBounds(379, 151, 89, 23);
 		frame.getContentPane().add(btnModificar);
-		btnModificar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				modificar();
-			}
-		});
+		
 		
 		
 		JButton btnBuscarPorNombre = new JButton("Buscar Por Nombre");
-		btnBuscarPorNombre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnBuscarPorNombre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				buscarPorNombre();
-			}
-		});
-		btnBuscarPorNombre.setBounds(326, 128, 135, 23);
+		btnBuscarPorNombre.setBounds(185, 156, 161, 23);
 		frame.getContentPane().add(btnBuscarPorNombre);
 		
+		
+		
 		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(355, 190, 89, 23);
+		btnBorrar.setBounds(379, 206, 89, 23);
 		frame.getContentPane().add(btnBorrar);
-		btnBorrar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				borrar();
-			}
-		});
+		
 		
 		JTextPane condDef = new JTextPane();
 		condDef.setFont(new Font("Tahoma", Font.BOLD, 11));
 		condDef.setBackground(SystemColor.control);
-		condDef.setBounds(139, 129, 98, 20);
+		condDef.setBounds(138, 179, 98, 20);
 		frame.getContentPane().add(condDef);
 		
 		JTextPane condEv = new JTextPane();
 		condEv.setFont(new Font("Tahoma", Font.BOLD, 11));
 		condEv.setBackground(SystemColor.control);
-		condEv.setBounds(139, 177, 98, 20);
+		condEv.setBounds(138, 227, 98, 20);
 		frame.getContentPane().add(condEv);
 		
-		JRadioButton newPers = new JRadioButton("Nuevo Personaje");
-		newPers.setBounds(351, 58, 123, 23);
-		//rdbtnNuevoPersonaje.setText("Nuevo Personaje");
-		//newPers.setSelected(true);
-		frame.getContentPane().add(newPers);
-		
 		JButton exit = new JButton("EXIT");
+		exit.setBounds(207, 297, 89, 23);
+		frame.getContentPane().add(exit);
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		exit.setBounds(199, 261, 89, 23);
-		frame.getContentPane().add(exit);
+		
 		
 		JButton btnLimpiarCampos = new JButton("Limpiar Campos");
+		btnLimpiarCampos.setBounds(352, 258, 135, 23);
+		frame.getContentPane().add(btnLimpiarCampos);
 		btnLimpiarCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiarCampos();
 			}
 		});
-		btnLimpiarCampos.setBounds(190, 209, 113, 23);
-		frame.getContentPane().add(btnLimpiarCampos);
-		
-		ptosDisp = new JTextField();
-		ptosDisp.setBounds(94, 245, 40, 20);
-		frame.getContentPane().add(ptosDisp);
-		ptosDisp.setColumns(10);
-		
-		JLabel lblPuntosDisponibles = new JLabel("Puntos Disp");
-		lblPuntosDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPuntosDisponibles.setBounds(10, 239, 75, 28);
-		frame.getContentPane().add(lblPuntosDisponibles);
 		
 		JButton btnBuscarPorCodigo = new JButton("Buscar Por Codigo");
-		btnBuscarPorCodigo.setBounds(326, 176, 135, 23);
+		btnBuscarPorCodigo.setBounds(185, 206, 161, 23);
 		frame.getContentPane().add(btnBuscarPorCodigo);
-		btnBuscarPorCodigo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				buscarPorCodigo();
-			}
-		});
 		
+		JButton btnCrear = new JButton("Crear");
+		btnCrear.setBounds(379, 176, 89, 23);
+		frame.getContentPane().add(btnCrear);
+
+		JRadioButton buscar = new JRadioButton("Buscar");
+		buscar.setBounds(335, 34, 109, 23);
+		frame.getContentPane().add(buscar);
+		
+		JRadioButton newPers = new JRadioButton("Nuevo Personaje");
+		newPers.setBounds(84, 34, 123, 23);
+		frame.getContentPane().add(newPers);
 		newPers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
 					if (newPers.isSelected()==true)
-						{
-							cod.setVisible(false);
-							lblCodigo.setVisible(false);
+						{	
 							btnCrear.setVisible(true);
-							btnBuscarPorCodigo.setVisible(false);
-							btnBuscarPorNombre.setVisible(false);
-							btnBorrar.setVisible(false);
-							btnModificar.setVisible(false);
+							nom.setVisible(true);
+							evasion.setVisible(true);
+							def.setVisible(true);
+							energia.setVisible(true);
+							vida.setVisible(true);
+							ptosTot.setVisible(true);
+							ptosDisp.setVisible(true);
+							lblEvasion.setVisible(true);
+							lblVida.setVisible(true);
+							lblDefensa.setVisible(true);
+							lblEnergia.setVisible(true);
+							lblNombre.setVisible(true);
+							lblPuntosTotales.setVisible(true);
+							lblPuntosDisponibles.setVisible(true);
 							ptosDisp.setText("200");
 							ptosTot.setText("0");
 							energia.setText("0");
@@ -268,24 +251,163 @@ public class ABMCPersonaje {
 							nom.setText("Ingrese nombre");
 							condEv.setText("Max 80 puntos");
 							condDef.setText("Max 20 puntos");
+							btnLimpiarCampos.setVisible(true);
+							buscar.setVisible(false);
 						 }
-					else{	btnCrear.setVisible(false);
-							cod.setVisible(true);
-							lblCodigo.setVisible(true);
-							btnBuscarPorCodigo.setVisible(true);
-							btnBuscarPorNombre.setVisible(true);
-							btnBorrar.setVisible(true);
-							btnModificar.setVisible(true);
-							ptosTot.setText("");
-							ptosDisp.setText("");
-							energia.setText("");
-							def.setText("");
-							vida.setText("");
-							evasion.setText("");
-							nom.setText("");
+					 
+					else{	buscar.setVisible(true);
+							nom.setVisible(false);
+							evasion.setVisible(false);
+							def.setVisible(false);
+							energia.setVisible(false);
+							vida.setVisible(false);
+							ptosTot.setVisible(false);
+							ptosDisp.setVisible(false);
+							lblEvasion.setVisible(false);
+							lblVida.setVisible(false);
+							lblDefensa.setVisible(false);
+							lblEnergia.setVisible(false);
+							lblNombre.setVisible(false);
+							lblPuntosTotales.setVisible(false);
+							lblPuntosDisponibles.setVisible(false);
 							condEv.setText("");
 							condDef.setText("");
+							btnCrear.setVisible(false);
+							btnLimpiarCampos.setVisible(false);
 						};
+			}
+		});
+		
+
+		
+		buscar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+					if (buscar.isSelected()==true)
+						{	btnBuscarPorNombre.setVisible(true);
+							btnBuscarPorCodigo.setVisible(true);
+							newPers.setVisible(false);
+							cod.setVisible(true);
+							nom.setVisible(true);
+							evasion.setVisible(true);
+							def.setVisible(true);
+							energia.setVisible(true);
+							vida.setVisible(true);
+							ptosTot.setVisible(true);
+							ptosDisp.setVisible(true);
+							lblCodigo.setVisible(true);
+							lblEvasion.setVisible(true);
+							lblVida.setVisible(true);
+							lblDefensa.setVisible(true);
+							lblEnergia.setVisible(true);
+							lblNombre.setVisible(true);
+							lblPuntosTotales.setVisible(true);
+							lblPuntosDisponibles.setVisible(true);
+						}
+					
+					else
+						{	btnBuscarPorNombre.setVisible(false);
+							btnBuscarPorCodigo.setVisible(false);
+							newPers.setVisible(true);
+							btnModificar.setVisible(false);
+							btnLimpiarCampos.setVisible(false);
+							btnBorrar.setVisible(false);
+							cod.setVisible(false);
+							nom.setVisible(false);
+							evasion.setVisible(false);
+							def.setVisible(false);
+							energia.setVisible(false);
+							vida.setVisible(false);
+							ptosTot.setVisible(false);
+							ptosDisp.setVisible(false);
+							lblCodigo.setVisible(false);
+							lblEvasion.setVisible(false);
+							lblVida.setVisible(false);
+							lblDefensa.setVisible(false);
+							lblEnergia.setVisible(false);
+							lblNombre.setVisible(false);
+							lblPuntosTotales.setVisible(false);
+							lblPuntosDisponibles.setVisible(false);
+							
+						}
+			}
+		});
+		
+		btnBuscarPorNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscarPorNombre();
+				if(buscarPorNombre())
+				{  	btnModificar.setVisible(true);
+					btnBorrar.setVisible(true);
+					btnLimpiarCampos.setVisible(true);
+					
+				}	
+				else 
+				{	btnModificar.setVisible(false);
+					btnBorrar.setVisible(false);
+					buscar.setSelected(false);
+					btnBuscarPorNombre.setVisible(false);
+					btnBuscarPorCodigo.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Ah avido un error");
+					cod.setVisible(false);
+					nom.setVisible(false);
+					evasion.setVisible(false);
+					def.setVisible(false);
+					energia.setVisible(false);
+					vida.setVisible(false);
+					ptosTot.setVisible(false);
+					ptosDisp.setVisible(false);
+					lblCodigo.setVisible(false);
+					lblEvasion.setVisible(false);
+					lblVida.setVisible(false);
+					lblDefensa.setVisible(false);
+					lblEnergia.setVisible(false);
+					lblNombre.setVisible(false);
+					lblPuntosTotales.setVisible(false);
+					lblPuntosDisponibles.setVisible(false);
+				}
+				
+				
+			}
+		});
+		
+		btnBuscarPorCodigo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscarPorCodigo();
+				if(buscarPorCodigo())
+				{  	btnModificar.setVisible(true);
+					btnBorrar.setVisible(true);
+					btnLimpiarCampos.setVisible(true);
+				}	
+				
+				else 
+				{	btnModificar.setVisible(false);
+					btnBorrar.setVisible(false);
+					buscar.setSelected(false);
+					btnBuscarPorNombre.setVisible(false);
+					btnBuscarPorCodigo.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Ah avido un error");
+					cod.setVisible(false);
+					nom.setVisible(false);
+					evasion.setVisible(false);
+					def.setVisible(false);
+					energia.setVisible(false);
+					vida.setVisible(false);
+					ptosTot.setVisible(false);
+					ptosDisp.setVisible(false);
+					lblCodigo.setVisible(false);
+					lblEvasion.setVisible(false);
+					lblVida.setVisible(false);
+					lblDefensa.setVisible(false);
+					lblEnergia.setVisible(false);
+					lblNombre.setVisible(false);
+					lblPuntosTotales.setVisible(false);
+					lblPuntosDisponibles.setVisible(false);
+				}
+				
+				
 			}
 		});
 		
@@ -294,23 +416,139 @@ public class ABMCPersonaje {
 			public void mouseClicked(MouseEvent e) {
 				creo=1;
 				agregar();
+				btnCrear.setVisible(false);
+				btnLimpiarCampos.setVisible(false);
+				cod.setVisible(false);
+				nom.setVisible(false);
+				evasion.setVisible(false);
+				def.setVisible(false);
+				energia.setVisible(false);
+				vida.setVisible(false);
+				ptosTot.setVisible(false);
+				ptosDisp.setVisible(false);
+				lblCodigo.setVisible(false);
+				lblEvasion.setVisible(false);
+				lblVida.setVisible(false);
+				lblDefensa.setVisible(false);
+				lblEnergia.setVisible(false);
+				lblNombre.setVisible(false);
+				lblPuntosTotales.setVisible(false);
+				lblPuntosDisponibles.setVisible(false);
+				buscar.setVisible(true);
 				newPers.setSelected(false);
 				condEv.setText("");
 				condDef.setText("");
 				limpiarCampos();
 				creo=0;
-				cod.setVisible(true);
+				/*cod.setVisible(true);
 				lblCodigo.setVisible(true);
 				btnCrear.setVisible(false);
 				btnBuscarPorCodigo.setVisible(true);
 				btnBuscarPorNombre.setVisible(true);
 				btnBorrar.setVisible(true);
-				btnModificar.setVisible(true);
+				btnModificar.setVisible(true);*/
 			}
 		});
 		
+		btnModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				modificar();				
+				btnBuscarPorCodigo.setVisible(false);
+				btnBuscarPorNombre.setVisible(false);
+				btnModificar.setVisible(false);
+				btnLimpiarCampos.setVisible(false);
+				btnBorrar.setVisible(false);
+				cod.setVisible(false);
+				nom.setVisible(false);
+				evasion.setVisible(false);
+				def.setVisible(false);
+				energia.setVisible(false);
+				vida.setVisible(false);
+				ptosTot.setVisible(false);
+				ptosDisp.setVisible(false);
+				lblCodigo.setVisible(false);
+				lblEvasion.setVisible(false);
+				lblVida.setVisible(false);
+				lblDefensa.setVisible(false);
+				lblEnergia.setVisible(false);
+				lblNombre.setVisible(false);
+				lblPuntosTotales.setVisible(false);
+				lblPuntosDisponibles.setVisible(false);
+				newPers.setVisible(true);
+				buscar.setSelected(false);
 
-	};
+			}
+		});
+		
+		btnBorrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				borrar();
+				btnBuscarPorCodigo.setVisible(false);
+				btnBuscarPorNombre.setVisible(false);
+				btnModificar.setVisible(false);
+				btnLimpiarCampos.setVisible(false);
+				btnBorrar.setVisible(false);
+				cod.setVisible(false);
+				nom.setVisible(false);
+				evasion.setVisible(false);
+				def.setVisible(false);
+				energia.setVisible(false);
+				vida.setVisible(false);
+				ptosTot.setVisible(false);
+				ptosDisp.setVisible(false);
+				lblCodigo.setVisible(false);
+				lblEvasion.setVisible(false);
+				lblVida.setVisible(false);
+				lblDefensa.setVisible(false);
+				lblEnergia.setVisible(false);
+				lblNombre.setVisible(false);
+				lblPuntosTotales.setVisible(false);
+				lblPuntosDisponibles.setVisible(false);
+				newPers.setVisible(true);
+				buscar.setSelected(false);
+
+			}
+		});
+	
+	
+			/*Hago que solo se puedan ver los botones de Buscar y Nuevo Personaje */		
+			btnCrear.setVisible(false);
+			btnBuscarPorCodigo.setVisible(false);
+			btnBuscarPorNombre.setVisible(false);
+			btnModificar.setVisible(false);
+			btnLimpiarCampos.setVisible(false);
+			btnBorrar.setVisible(false);
+			cod.setVisible(false);
+			nom.setVisible(false);
+			evasion.setVisible(false);
+			def.setVisible(false);
+			energia.setVisible(false);
+			vida.setVisible(false);
+			ptosTot.setVisible(false);
+			ptosDisp.setVisible(false);
+			lblCodigo.setVisible(false);
+			lblEvasion.setVisible(false);
+			lblVida.setVisible(false);
+			lblDefensa.setVisible(false);
+			lblEnergia.setVisible(false);
+			lblNombre.setVisible(false);
+			lblPuntosTotales.setVisible(false);
+			lblPuntosDisponibles.setVisible(false);
+				
+		
+} //Aca termina el INICIALIZE
+		
+	
+		
+		
+
+		
+
+		
+
+	
 ///METODOS/////////////////////	
 			protected void agregar() {
 				if(datosValidos(creo)){
@@ -321,33 +559,46 @@ public class ABMCPersonaje {
 						
 				}
 			}
-			protected void buscarPorNombre() {
+			
+			protected boolean buscarPorNombre() {
 				//creo=1;
+				boolean ok=false;
 				if(!nom.getText().matches(""))
 					{	
 						Personaje p = ctrl.getPersonaje(nom.getText());
-						if(p!=null) MapearAFormulario(p);
+						if(p!=null) 
+							{	MapearAFormulario(p);
+								ok=true;
+							}
 						else JOptionPane.showMessageDialog(null, "No se encontro el nombre del personaje");
+						
 					}
 				else
 					{
 						JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre");
 						limpiarCampos();
 					}
+				return ok;
 			}
-			protected void buscarPorCodigo() {	
+			
+			protected boolean buscarPorCodigo() {
+				boolean ok=false;
 				if(!cod.getText().matches(""))
 					{	
 						Personaje p = ctrl.getPersonaje(Integer.parseInt(cod.getText()));
-						if(p!=null) MapearAFormulario(p);
-						else JOptionPane.showMessageDialog(null, "No se encontro el codigo del personaje");
+						if(p!=null) 
+						{	MapearAFormulario(p);
+							ok=true;
+						}
+					else JOptionPane.showMessageDialog(null, "No se encontro el codigo del personaje");
+					
 					}
 				else
 					{
 						JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un codigo");
 						limpiarCampos();
 					}
-				
+				return ok;
 			}
 			
 			protected void modificar() {
@@ -407,7 +658,7 @@ public class ABMCPersonaje {
 			}
 			
 			protected void limpiarCampos(){	
-				{	
+					
 					ptosTot.setText("");
 					ptosDisp.setText("");
 					energia.setText("");
@@ -415,10 +666,7 @@ public class ABMCPersonaje {
 					vida.setText("");
 					evasion.setText("");
 					nom.setText("");
-					cod.setText("");
-			
-			
-				};
+					cod.setText("");	
 			}
 			
 			public boolean datosValidos(int creo){
@@ -426,7 +674,6 @@ public class ABMCPersonaje {
 				boolean coincideNom=false;
 				boolean coincideCodNom=false;
 				int suma=0;
-				//Font fuente =new Font("Serief",Font.BOLD|Font.ITALIC,14);
 				   
 				
 				
@@ -434,7 +681,6 @@ public class ABMCPersonaje {
 				{
 				JOptionPane.showMessageDialog(null, "LA ENERGIA NO ES UN NUMERO");
 				 valido=false;
-				// energia.setFont(fuente);
 				}
 				
 				if(!def.getText().matches("[0-9]*") || def.getText().matches("") ||Integer.parseInt(def.getText())>20 )
@@ -505,7 +751,10 @@ public class ABMCPersonaje {
 				return valido;
 				
 			}
-}
+			
+} //Aca termina la clase
+
+			
 		
 	
 		
