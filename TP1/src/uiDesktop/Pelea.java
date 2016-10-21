@@ -129,7 +129,7 @@ public class Pelea {
 		btnAbandonar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				ABMCPelea.main(null);
+				MenuPelea.main(null);
 			}
 		});
 		btnAbandonar.setBounds(36, 228, 89, 23);

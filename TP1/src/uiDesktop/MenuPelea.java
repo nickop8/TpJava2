@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 
 import entidades.Personaje;
 
-public class ABMCPelea {
+public class MenuPelea {
 
 	private JFrame frmSeleccinDePersonajes;
 	private JTextField evP1;
@@ -47,16 +47,16 @@ public class ABMCPelea {
 	private JLabel label_1;
 	private JLabel lblEvasion;
 	private JLabel label_3;
-	private JTextField textField;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField energiaP2;
+	private JTextField vidaP2;
+	private JTextField defP2;
+	private JTextField evP2;
 	private JLabel label_4;
 	private JLabel label_5;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JButton btnElegirJ;
-	private JButton btnElegirJ_1;
+	private JTextField codP2;
+	private JTextField nomP2;
+	private JButton btnElegirJ1;
+	private JButton btnElegirJ2;
 	private JButton btnCancelar;
 	private JButton btnpelear;
 	private Personaje j1, j2;
@@ -68,7 +68,7 @@ public class ABMCPelea {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ABMCPelea window = new ABMCPelea();
+					MenuPelea window = new MenuPelea();
 					window.frmSeleccinDePersonajes.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,7 +80,7 @@ public class ABMCPelea {
 	/**
 	 * Create the application.
 	 */
-	public ABMCPelea() {
+	public MenuPelea() {
 		initialize();
 	}
 
@@ -187,25 +187,25 @@ public class ABMCPelea {
 		label_3.setBounds(171, 178, 40, 14);
 		panel.add(label_3);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(227, 230, 35, 20);
-		panel.add(textField);
+		energiaP2 = new JTextField();
+		energiaP2.setColumns(10);
+		energiaP2.setBounds(227, 230, 35, 20);
+		panel.add(energiaP2);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(227, 202, 35, 20);
-		panel.add(textField_5);
+		vidaP2 = new JTextField();
+		vidaP2.setColumns(10);
+		vidaP2.setBounds(227, 202, 35, 20);
+		panel.add(vidaP2);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(227, 175, 35, 20);
-		panel.add(textField_6);
+		defP2 = new JTextField();
+		defP2.setColumns(10);
+		defP2.setBounds(227, 175, 35, 20);
+		panel.add(defP2);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(227, 146, 35, 20);
-		panel.add(textField_7);
+		evP2 = new JTextField();
+		evP2.setColumns(10);
+		evP2.setBounds(227, 146, 35, 20);
+		panel.add(evP2);
 		
 		label_4 = new JLabel("C\u00F3digo");
 		label_4.setBounds(176, 76, 36, 14);
@@ -215,36 +215,39 @@ public class ABMCPelea {
 		label_5.setBounds(176, 104, 40, 14);
 		panel.add(label_5);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(227, 73, 35, 20);
-		panel.add(textField_10);
+		codP2 = new JTextField();
+		codP2.setColumns(10);
+		codP2.setBounds(227, 73, 35, 20);
+		panel.add(codP2);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
-		textField_11.setBounds(227, 101, 86, 20);
-		panel.add(textField_11);
+		nomP2 = new JTextField();
+		nomP2.setColumns(10);
+		nomP2.setBounds(227, 101, 86, 20);
+		panel.add(nomP2);
 		
-		btnElegirJ = new JButton("Elegir J1...");
-		btnElegirJ.addActionListener(new ActionListener() {
+		btnElegirJ1 = new JButton("Elegir J1...");
+		btnElegirJ1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				j1= new Personaje();
-				ElegirPersonaje.main(j1);
-				if(j1.getCodigo()!=0) mapear(j1);
+				ElegirPersonaje ep = new ElegirPersonaje();
+				j1= ep.run();
+				if(j1.getCodigo()!=0) mapearJ1(j1);
 				
 			}
 		});
-		btnElegirJ.setBounds(40, 36, 89, 23);
-		panel.add(btnElegirJ);
+		btnElegirJ1.setBounds(40, 36, 89, 23);
+		panel.add(btnElegirJ1);
 		
-		btnElegirJ_1 = new JButton("Elegir J2...");
-		btnElegirJ_1.addActionListener(new ActionListener() {
+		btnElegirJ2 = new JButton("Elegir J2...");
+		btnElegirJ2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ElegirPersonaje.main(j2);
-			}
+				ElegirPersonaje ep = new ElegirPersonaje();
+				j2= ep.run();			
+				if(j2.getCodigo()!=0) mapearJ2(j2);
+
+				}
 		});
-		btnElegirJ_1.setBounds(200, 36, 89, 23);
-		panel.add(btnElegirJ_1);
+		btnElegirJ2.setBounds(200, 36, 89, 23);
+		panel.add(btnElegirJ2);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -267,7 +270,7 @@ public class ABMCPelea {
 		frmSeleccinDePersonajes.getContentPane().setLayout(groupLayout);
 	};
 	
-	public void mapear(Personaje j){
+	public void mapearJ1(Personaje j){
 			System.out.println(j.getCodigo() + j.getNombre());
 			codP1.setText(String.valueOf(j.getCodigo()));
 			nomP1.setText(String.valueOf(j.getNombre()));
@@ -276,11 +279,20 @@ public class ABMCPelea {
 			vidaP1.setText(String.valueOf(j.getVida()));
 			evP1.setText(String.valueOf(j.getEvasion()));
 		
-		
-		
-	}
-	public void add(Personaje j){
-			mapear(j);
 	}
 	
+	public void mapearJ2(Personaje j){
+		System.out.println(j.getCodigo() + j.getNombre());
+		codP2.setText(String.valueOf(j.getCodigo()));
+		nomP2.setText(String.valueOf(j.getNombre()));
+		energiaP2.setText(String.valueOf(j.getEnergia()));
+		defP2.setText(String.valueOf(j.getDefensa()));
+		vidaP2.setText(String.valueOf(j.getVida()));
+		evP2.setText(String.valueOf(j.getEvasion()));
+	}
+		
+	public void add(Personaje j){
+		//	mapear(j);
+	
+	}
 }

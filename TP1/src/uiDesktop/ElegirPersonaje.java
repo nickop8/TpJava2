@@ -34,16 +34,15 @@ public class ElegirPersonaje {
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
 	private Personaje j=null;
-	private ABMCPelea pelea;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(Personaje p) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ElegirPersonaje window = new ElegirPersonaje(p);
+					ElegirPersonaje window = new ElegirPersonaje();
 					window.frmElegirPersonaje.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,10 +54,8 @@ public class ElegirPersonaje {
 	/**
 	 * Create the application.
 	 */
-	public ElegirPersonaje(Personaje p) {
-		
-		j = p;
-		
+	public ElegirPersonaje() {
+				
 		try 
 	    { 
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
@@ -66,7 +63,6 @@ public class ElegirPersonaje {
 	    catch(Exception e){ 
 	    }
 		initialize();
-		pelea = new ABMCPelea();
 	}
 
 	/**
@@ -141,6 +137,12 @@ public class ElegirPersonaje {
 		
 		DataPersonaje dp = new DataPersonaje();
 		j = dp.getByCodigo(codigo);
+		return j;
+	}
+	
+	public Personaje run(){
+		main(null);
+		
 		return j;
 	}
 	

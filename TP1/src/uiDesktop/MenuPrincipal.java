@@ -70,7 +70,7 @@ public class MenuPrincipal {
 		JButton btnNewButton = new JButton("Iniciar partida");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ABMCPelea.main(null);
+				MenuPelea.main(null);
 			}
 		});
 		
