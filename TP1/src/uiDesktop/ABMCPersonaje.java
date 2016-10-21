@@ -244,6 +244,10 @@ public class ABMCPersonaje {
 		buscar.setBounds(335, 34, 109, 23);
 		frame.getContentPane().add(buscar);
 		
+		JRadioButton newPers = new JRadioButton("Nuevo Personaje");
+		newPers.setBounds(84, 34, 123, 23);
+		frame.getContentPane().add(newPers);
+		
 		btnBuscarPorCodigo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarPorCodigo();
@@ -254,12 +258,11 @@ public class ABMCPersonaje {
 				}	
 				
 				else 
-				{	btnModificar.setVisible(false);
+				{	/*btnModificar.setVisible(false);
 					btnBorrar.setVisible(false);
-					buscar.setSelected(false);
+					buscar.setSelected(false);*/
 					btnBuscarPorNombre.setVisible(false);
 					btnBuscarPorCodigo.setVisible(false);
-					JOptionPane.showMessageDialog(null, "Ha habido un error");
 					cod.setVisible(false);
 					nom.setVisible(false);
 					evasion.setVisible(false);
@@ -276,6 +279,9 @@ public class ABMCPersonaje {
 					lblNombre.setVisible(false);
 					lblPuntosTotales.setVisible(false);
 					lblPuntosDisponibles.setVisible(false);
+					buscar.setSelected(false);
+					newPers.setVisible(true);
+
 				}
 			}
 		});
@@ -290,12 +296,11 @@ public class ABMCPersonaje {
 					
 				}	
 				else 
-				{	btnModificar.setVisible(false);
+				{	/*btnModificar.setVisible(false);
 					btnBorrar.setVisible(false);
-					buscar.setSelected(false);
+					buscar.setSelected(false);*/
 					btnBuscarPorNombre.setVisible(false);
 					btnBuscarPorCodigo.setVisible(false);
-					JOptionPane.showMessageDialog(null, "Ah avido un error");
 					cod.setVisible(false);
 					nom.setVisible(false);
 					evasion.setVisible(false);
@@ -312,13 +317,15 @@ public class ABMCPersonaje {
 					lblNombre.setVisible(false);
 					lblPuntosTotales.setVisible(false);
 					lblPuntosDisponibles.setVisible(false);
+					buscar.setSelected(false);
+					newPers.setVisible(true);
+
+
 				}
 			}
 		});
 		
-		JRadioButton newPers = new JRadioButton("Nuevo Personaje");
-		newPers.setBounds(84, 34, 123, 23);
-		frame.getContentPane().add(newPers);
+		
 		newPers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -607,7 +614,7 @@ public class ABMCPersonaje {
 					}
 				else
 					{
-						JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un nombre");
+						JOptionPane.showMessageDialog(null, "Volve a ingresar un nombre");
 						limpiarCampos();
 					}
 				return ok;
@@ -627,7 +634,7 @@ public class ABMCPersonaje {
 					}
 				else
 					{
-						JOptionPane.showMessageDialog(null, "Ha habido un error amigoh\nVolve a ingresar un codigo");
+						JOptionPane.showMessageDialog(null, "Volve a ingresar un codigo");
 						limpiarCampos();
 					}
 				return ok;
