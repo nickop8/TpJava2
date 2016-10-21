@@ -110,6 +110,7 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(lblNombre);
 		
 		nom = new JTextField();
+		nom.setToolTipText("");
 		nom.setBounds(237, 97, 145, 20);
 		frame.getContentPane().add(nom);
 		nom.setColumns(10);
