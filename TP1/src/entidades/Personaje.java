@@ -1,7 +1,9 @@
-package entidades;
+package entidades;/*Nico**/
+
+import javax.swing.JOptionPane;
 
 public class Personaje {
-	private int codigo, vida, energia, defensa, evasion, ptos_totales;
+	private int codigo, vida, energia, defensa, evasion, ptos_totales, energiaPartida, vidaPartida;
 	private String nombre;
 	
 	public Personaje(){
@@ -10,6 +12,61 @@ public class Personaje {
 		this.setEnergia(0);
 		this.setEvasion(0);
 		this.setPtos_totales(200);
+	}
+	
+	public boolean atacar(String ataque, int evasionOponente){
+	
+		this.energiaPartida -= Integer.parseInt(ataque);
+		if((Math.random() * 100) > evasionOponente)	
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+	public void recibirAtaque(String ataque){
+		
+		this.vidaPartida -= Integer.parseInt(ataque);
+		
+	}
+	
+	public void defender(){
+		int energiaARecuperar, vidaARecuperar;
+		energiaARecuperar = this.energiaPartida * this.defensa / 100;
+		if ((energiaARecuperar + this.energiaPartida) > this.energia )
+		{
+			this.energiaPartida = this.energia;
+		}
+		else
+		{
+			this.energiaPartida += energiaARecuperar ;
+		}
+		vidaARecuperar = this.vidaPartida * this.defensa / 250;
+		if ((vidaARecuperar + this.vidaPartida)> this.vida)
+		{
+			this.vidaPartida = this.vida;
+		}
+		else{
+			this.vidaPartida += vidaARecuperar;
+		}
+	}
+	
+	public int getEnergiaPartida() {
+		return energiaPartida;
+	}
+	public void setEnergiaPartida() {
+		this.energiaPartida = this.energia;
+	}
+	
+	public int getVidaPartida() {
+		return vidaPartida;
+	}
+	public void setVidaPartida() {
+		this.vidaPartida = this.vida;
 	}
 	
 	public int getCodigo() {

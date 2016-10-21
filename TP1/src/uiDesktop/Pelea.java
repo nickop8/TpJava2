@@ -1,13 +1,16 @@
-package uiDesktop;
+package uiDesktop;/*Nico*/
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JDesktopPane;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import negocio.*;
 import entidades.*;
@@ -23,16 +26,16 @@ public class Pelea {
 	private JTextField textField_3;
 	private JTextField textField_1;
 	private JTextField textField_4;
-	private Personaje per;
+	private Personaje per, p1, p2;
 
 	/**
-	 * Launch the application.
+	 * **Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Personaje j1, Personaje j2 ) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Pelea window = new Pelea();
+					Pelea window = new Pelea( j1, j2);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,9 +47,30 @@ public class Pelea {
 	/**
 	 * Create the application.
 	 */
-	public Pelea() {
+	public Pelea(Personaje j1, Personaje j2) {
+		try 
+	    { 
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
+	    } 
+	    catch(Exception e){ 
+	    }
+		p1 = j1;
+		p2 = j2;
+		p1.setEnergiaPartida();
+		p2.setEnergiaPartida();
+		p1.setVidaPartida();
+		p2.setVidaPartida();
+		
 		initialize();
+		
+		while(p1.getVidaPartida() != 0 && p2.getVidaPartida() != 0){
+			if(p1.getVidaPartida()==0){
+			
+					JOptionPane.showMessageDialog(null, "Felicitaciones "+ p2.getNombre()+"!! Has ganado, eres un terremoto cósmico!!");
+			}
+		}
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -135,7 +159,11 @@ public class Pelea {
 		btnAbandonar.setBounds(36, 228, 89, 23);
 		frame.getContentPane().add(btnAbandonar);
 	}
+
+	
+	
 }
+
 
 
 //Para agarrar cada personaje se basa en el codigo y nombre proporcioando en la ABMCBusqueda

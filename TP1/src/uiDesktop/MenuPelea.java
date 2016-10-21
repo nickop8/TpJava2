@@ -230,9 +230,9 @@ public class MenuPelea {
 		btnElegirJ1 = new JButton("Elegir J1...");
 		btnElegirJ1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ElegirPersonaje ep = new ElegirPersonaje();
+				/*ElegirPersonaje ep = new ElegirPersonaje();
 				j1 = ep.getPersonajeElegido();
-				if(j1.getCodigo()!=0) mapearJ1(j1);
+				if(j1.getCodigo()!=0) mapearJ1(j1);*/
 				
 			}
 		});
@@ -242,10 +242,10 @@ public class MenuPelea {
 		btnElegirJ2 = new JButton("Elegir J2...");
 		btnElegirJ2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ElegirPersonaje ep = new ElegirPersonaje();
+				/*ElegirPersonaje ep = new ElegirPersonaje();
 				ep.run();
 				j2 = ep.getPersonajeElegido();
-				if(j2.getCodigo()!=0) mapearJ2(j2);
+				if(j2.getCodigo()!=0) mapearJ2(j2);*/
 
 				}
 		});
@@ -264,7 +264,7 @@ public class MenuPelea {
 		btnpelear = new JButton("\u00A1Pelear!");
 		btnpelear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Pelea.main(null);
+				Pelea.main(j1, j2);
 				frmSeleccinDePersonajes.setVisible(false);
 			}
 		});
