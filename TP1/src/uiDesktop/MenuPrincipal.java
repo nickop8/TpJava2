@@ -4,14 +4,20 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+
 import java.awt.BorderLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,6 +46,13 @@ public class MenuPrincipal {
 	 * Create the application.
 	 */
 	public MenuPrincipal() {
+		
+		try 
+	    { 
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
+	    } 
+	    catch(Exception e){ 
+	    }
 		initialize();
 	}
 

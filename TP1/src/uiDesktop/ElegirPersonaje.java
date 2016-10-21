@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
 
@@ -51,6 +52,13 @@ public class ElegirPersonaje {
 	 * Create the application.
 	 */
 	public ElegirPersonaje() {
+		
+		try 
+	    { 
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
+	    } 
+	    catch(Exception e){ 
+	    }
 		initialize();
 	}
 
