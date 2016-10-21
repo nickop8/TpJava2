@@ -31,15 +31,16 @@ public class ElegirPersonaje {
 	private JTable tblListaPersonajes;
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
+	private Personaje j;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Personaje p) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ElegirPersonaje window = new ElegirPersonaje();
+					ElegirPersonaje window = new ElegirPersonaje(p);
 					window.frmElegirPersonaje.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,9 @@ public class ElegirPersonaje {
 	/**
 	 * Create the application.
 	 */
-	public ElegirPersonaje() {
+	public ElegirPersonaje(Personaje p) {
+		
+		j = p;
 		
 		try 
 	    { 
@@ -120,12 +123,11 @@ public class ElegirPersonaje {
 		}
 	}
 	
-	public Personaje getPersonaje(int codigo){
+	public void getPersonaje(int codigo){
 		
-		Personaje p;
 		DataPersonaje dp = new DataPersonaje();
-		p = dp.getByCodigo(codigo);
+		j = dp.getByCodigo(codigo);
 		
-		return p;
+		return;
 	}
 }
