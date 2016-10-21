@@ -81,6 +81,8 @@ public class MenuPelea {
 	 * Create the application.
 	 */
 	public MenuPelea() {
+		j1 = new Personaje();
+		j2 = new Personaje();
 		initialize();
 	}
 
@@ -229,7 +231,7 @@ public class MenuPelea {
 		btnElegirJ1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ElegirPersonaje ep = new ElegirPersonaje();
-				j1= ep.run();
+				j1 = ep.getPersonajeElegido();
 				if(j1.getCodigo()!=0) mapearJ1(j1);
 				
 			}
@@ -241,7 +243,8 @@ public class MenuPelea {
 		btnElegirJ2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ElegirPersonaje ep = new ElegirPersonaje();
-				j2= ep.run();			
+				ep.run();
+				j2 = ep.getPersonajeElegido();
 				if(j2.getCodigo()!=0) mapearJ2(j2);
 
 				}

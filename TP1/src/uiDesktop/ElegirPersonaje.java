@@ -80,23 +80,26 @@ public class ElegirPersonaje {
 		JScrollPane scrollPane = new JScrollPane();
 		
 		btnSeleccionar = new JButton("Seleccionar");
+		
+		
+		btnCancelar = new JButton("Cancelar");
+		
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int row = tblListaPersonajes.getSelectedRow();	
 				String id=tblListaPersonajes.getValueAt(row, 0).toString();
 				int cod=Integer.parseInt(id);
 				j=getPersonaje(cod);
-				//pelea.add(j);
 				
 			}
 		});
 		
-		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmElegirPersonaje.setVisible(false);
 			}
 		});
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -140,9 +143,15 @@ public class ElegirPersonaje {
 		return j;
 	}
 	
-	public Personaje run(){
-		main(null);
+	public void run(){
+		this.initialize();
+		frmElegirPersonaje.setVisible(true);
 		
+		
+	}
+
+	public Personaje getPersonajeElegido() {
+		frmElegirPersonaje.setVisible(true);
 		return j;
 	}
 	
