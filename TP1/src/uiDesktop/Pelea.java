@@ -16,26 +16,31 @@ import negocio.*;
 import entidades.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 
 public class Pelea {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_1;
-	private JTextField textField_4;
+	private JTextField txtVida1;
+	private JTextField txtVida2;
+	private JTextField txtEnergia1;
+	private JTextField txtEnergia2;
+	private JTextField txtTurno;
 	private Personaje per, p1, p2;
+	private JTextField txtEnergiaAtaque;
+	private String tipo_pelea;
+	private MenuPelea mp;
+
 
 	/**
 	 * **Launch the application.
 	 */
-	public static void main(Personaje j1, Personaje j2 ) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Pelea window = new Pelea( j1, j2);
+					Pelea window = new Pelea();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,142 +52,200 @@ public class Pelea {
 	/**
 	 * Create the application.
 	 */
-	public Pelea(Personaje j1, Personaje j2) {
-		String turno = "P1";
+	public Pelea() {
+
 		try 
 	    { 
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
 	    } 
 	    catch(Exception e){ 
 	    }
-		p1 = j1; //jugador que tiene el turno
-		p2 = j2;  //oponente
-		p1.setEnergiaPartida();
-		p2.setEnergiaPartida();
-		p1.setVidaPartida();
-		p2.setVidaPartida();
-		Personaje aux= new Personaje();
 		initialize();
-		
-		
-		while(p1.getVidaPartida() != 0 && p2.getVidaPartida() != 0)
-		{
-			if(turno == "P1"){
-				
-				
-				
-				turno="P2";
-			}else{
-				
-			}
-			aux = p1;
-			p1 = p2;
-			p2 = aux;
-		}
-		
-		if(p1.getVidaPartida()==0){
-			
-			JOptionPane.showMessageDialog(null, "Felicitaciones "+ p2.getNombre()+"!! Has ganado, eres un terremoto cósmico!!");
-		}else{
-			JOptionPane.showMessageDialog(null, "Felicitaciones "+ p1.getNombre()+"!! Has ganado, eres un terremoto cósmico!!");
-		}
 	}
 	
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 320, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblPelea = new JLabel("PELEA");
+		lblPelea.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPelea.setFont(new Font("Showcard Gothic", Font.BOLD, 25));
-		lblPelea.setBounds(102, 11, 113, 38);
+		lblPelea.setBounds(88, 11, 129, 38);
 		frame.getContentPane().add(lblPelea);
 		
 		JLabel lblPersonaje = new JLabel("Personaje 1");
 		lblPersonaje.setFont(new Font("Franklin Gothic Medium Cond", Font.BOLD, 14));
-		lblPersonaje.setBounds(36, 66, 78, 14);
+		lblPersonaje.setBounds(38, 93, 78, 14);
 		frame.getContentPane().add(lblPersonaje);
 		
 		JLabel lblVida = new JLabel("Vida");
-		lblVida.setBounds(10, 91, 46, 14);
+		lblVida.setBounds(12, 118, 46, 14);
 		frame.getContentPane().add(lblVida);
 		
 		JLabel lblEnergia = new JLabel("Energia");
-		lblEnergia.setBounds(10, 121, 46, 14);
+		lblEnergia.setBounds(12, 148, 46, 14);
 		frame.getContentPane().add(lblEnergia);
 		
-		textField = new JTextField();
-		textField.setBounds(64, 88, 46, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		txtVida1 = new JTextField();
+		txtVida1.setEditable(false);
+		txtVida1.setBounds(66, 115, 46, 20);
+		frame.getContentPane().add(txtVida1);
+		txtVida1.setColumns(10);
 		
 		JLabel lblPersonaje_1 = new JLabel("Personaje 2");
 		lblPersonaje_1.setFont(new Font("Franklin Gothic Medium Cond", Font.BOLD, 14));
-		lblPersonaje_1.setBounds(182, 66, 78, 14);
+		lblPersonaje_1.setBounds(184, 93, 78, 14);
 		frame.getContentPane().add(lblPersonaje_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(214, 88, 46, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		txtVida2 = new JTextField();
+		txtVida2.setEditable(false);
+		txtVida2.setBounds(216, 115, 46, 20);
+		frame.getContentPane().add(txtVida2);
+		txtVida2.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(64, 118, 48, 20);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		txtEnergia1 = new JTextField();
+		txtEnergia1.setEditable(false);
+		txtEnergia1.setBounds(66, 145, 46, 20);
+		frame.getContentPane().add(txtEnergia1);
+		txtEnergia1.setColumns(10);
 		
 		JLabel lblVida_1 = new JLabel("Vida");
-		lblVida_1.setBounds(169, 91, 46, 14);
+		lblVida_1.setBounds(171, 118, 46, 14);
 		frame.getContentPane().add(lblVida_1);
 		
 		JLabel lblEnergia_1 = new JLabel("Energia");
-		lblEnergia_1.setBounds(169, 121, 46, 14);
+		lblEnergia_1.setBounds(171, 148, 46, 14);
 		frame.getContentPane().add(lblEnergia_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(214, 118, 46, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		txtEnergia2 = new JTextField();
+		txtEnergia2.setEditable(false);
+		txtEnergia2.setBounds(216, 145, 46, 20);
+		frame.getContentPane().add(txtEnergia2);
+		txtEnergia2.setColumns(10);
 		
 		JLabel lblTurno = new JLabel("Turno Personaje: ");
-		lblTurno.setBounds(10, 170, 88, 41);
+		lblTurno.setBounds(88, 40, 88, 41);
 		frame.getContentPane().add(lblTurno);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(97, 180, 40, 20);
-		frame.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		txtTurno = new JTextField();
+		txtTurno.setEditable(false);
+		txtTurno.setBounds(175, 50, 40, 20);
+		frame.getContentPane().add(txtTurno);
+		txtTurno.setColumns(10);
 		
 		JButton btnAtacar = new JButton("Atacar");
 		btnAtacar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				
+				tipo_pelea = "A";
 			}
 		});
-		btnAtacar.setBounds(169, 179, 89, 23);
+		btnAtacar.setBounds(195, 206, 89, 23);
 		frame.getContentPane().add(btnAtacar);
 		
 		JButton btnDefender = new JButton("Defender");
-		btnDefender.setBounds(171, 213, 89, 23);
-		frame.getContentPane().add(btnDefender);
-		
-		JButton btnAbandonar = new JButton("Abandonar");
-		btnAbandonar.addActionListener(new ActionListener() {
+		btnDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				MenuPelea.main(null);
+				tipo_pelea = "D";
 			}
 		});
-		btnAbandonar.setBounds(36, 228, 89, 23);
-		frame.getContentPane().add(btnAbandonar);
+		btnDefender.setBounds(197, 240, 89, 23);
+		frame.getContentPane().add(btnDefender);
+		
+		txtEnergiaAtaque = new JTextField();
+		txtEnergiaAtaque.setColumns(10);
+		txtEnergiaAtaque.setBounds(113, 208, 46, 20);
+		frame.getContentPane().add(txtEnergiaAtaque);
+		
+		JLabel lblEnergiaDeAtaque = new JLabel("Energia de ataque:");
+		lblEnergiaDeAtaque.setBounds(12, 210, 100, 14);
+		frame.getContentPane().add(lblEnergiaDeAtaque);
+		
+		mapearAFormulario(p1, p2);
 	}
-
 	
+	public void pelear(Personaje j1, Personaje j2){
+		String turno="P1";
+		int energiaAtaque;
+
+		p1 = j1;
+		p2 = j2; 		
+		p1.setEnergiaPartida(); 		
+		p2.setEnergiaPartida(); 		
+		p1.setVidaPartida(); 		
+		p2.setVidaPartida(); 
+		
+		if(!txtEnergiaAtaque.getText().matches("[0-9]*") || txtEnergiaAtaque.getText().matches("")) {
+			JOptionPane.showMessageDialog(null, "LA ENERGIA NO ES UN NUMERO");
+		}
+		else {
+			
+			if(turno== "P1"){
+				turno = "P2";
+				if(tipo_pelea == "A"){
+					p1.atacar(Integer.valueOf(txtEnergiaAtaque.getText()), p2.getEvasion());
+				}
+				if (tipo_pelea == "D"){
+					p1.defender();
+				}
+			}
+			
+			else{
+				turno = "P1";
+				if(tipo_pelea == "A"){
+					p2.atacar(Integer.valueOf(txtEnergiaAtaque.getText()), p1.getEvasion());
+				}
+				if (tipo_pelea == "D"){
+					p2.defender();
+				}
+			}
+			
+			mapearAFormulario(p1,p2);
+		
+			if(p1.getVidaPartida()==0){ 								
+				JOptionPane.showMessageDialog(null, "Felicitaciones "+ p2.getNombre()+"!! Has ganado, eres un terremoto cósmico!!"); 
+				}
+			else{ 								
+					JOptionPane.showMessageDialog(null, "Felicitaciones "+ p1.getNombre()+"!! Has ganado, eres un terremoto cósmico!!"); 
+				}  
+		}
+		
+	}
+	
+	public void mapearAFormulario(Personaje p1, Personaje p2){
+		txtEnergia1.setText(String.valueOf( p1.getEnergia()));
+		txtVida1.setText(String.valueOf(p1.getVida()));
+		txtEnergia2.setText(String.valueOf( p2.getEnergia()));
+		txtVida2.setText(String.valueOf(p2.getVida()));
+	}
+	
+	public void setCaller(MenuPelea menuPelea) {
+		mp = menuPelea;
+		getJugadores();
+	}
+	
+	public MenuPelea getCaller(){
+		return mp;
+	}
+	
+	public void getJugadores(){
+		p1 = mp.getJ1();
+		p2 = mp.getJ2();
+	}
+	
+	
+	public void show(boolean b) {
+		frame.setVisible(b);
+		
+	}
+		
 	
 }
 

@@ -148,18 +148,6 @@ public class ElegirPersonaje {
 		j = dp.getByCodigo(codigo);
 		return j;
 	}
-	
-	public void run(){
-		this.initialize();
-		frmElegirPersonaje.setVisible(true);
-		
-		
-	}
-
-	public Personaje getPersonajeElegido() {
-		frmElegirPersonaje.setVisible(true);
-		return j;
-	}
 
 	public void setCaller(MenuPelea menuPelea) {
 		mp = menuPelea;

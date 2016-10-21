@@ -268,8 +268,7 @@ public class MenuPelea {
 		btnpelear = new JButton("\u00A1Pelear!");
 		btnpelear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Pelea.main(j1,j2);
-				frmSeleccinDePersonajes.setVisible(false);
+				pelear();
 			}
 		});
 		btnpelear.setBounds(143, 271, 89, 23);
@@ -313,6 +312,20 @@ public class MenuPelea {
 		ElegirPersonaje frmElegirPersonaje = new ElegirPersonaje();
 		frmElegirPersonaje.setCaller(this);
 		frmElegirPersonaje.show(true);
+	}
+	
+	private void pelear(){
+		Pelea pelea = new Pelea();
+		pelea.setCaller(this);
+		pelea.show(true);
+	}
+	
+	public Personaje getJ1(){
+		return j1;
+	}
+	
+	public Personaje getJ2(){
+		return j2;
 	}
 
 }

@@ -14,9 +14,9 @@ public class Personaje {
 		this.setPtos_totales(200);
 	}
 	
-	public boolean atacar(String ataque, int evasionOponente){
+	public boolean atacar(int ataque, int evasionOponente){
 	
-		this.energiaPartida -= Integer.parseInt(ataque);
+		setEnergiaPartida(getEnergiaPartida()-ataque);
 		if((Math.random() * 100) > evasionOponente)	
 		{
 			return true;
@@ -28,30 +28,30 @@ public class Personaje {
 		
 	}
 	
-	public void recibirAtaque(String ataque){
+	public void recibirAtaque(int ataque){
 		
-		this.vidaPartida -= Integer.parseInt(ataque);
+		setVidaPartida(getVidaPartida()-ataque);
 		
 	}
 	
 	public void defender(){
 		int energiaARecuperar, vidaARecuperar;
-		energiaARecuperar = this.energiaPartida * this.defensa / 100;
-		if ((energiaARecuperar + this.energiaPartida) > this.energia )
+		energiaARecuperar = getEnergiaPartida() * getDefensa() / 100;
+		if ((energiaARecuperar + getEnergiaPartida()) > getEnergia())
 		{
-			this.energiaPartida = this.energia;
+			setEnergiaPartida(getEnergia());
 		}
 		else
 		{
-			this.energiaPartida += energiaARecuperar ;
+			setEnergiaPartida(getEnergiaPartida()+energiaARecuperar) ;
 		}
-		vidaARecuperar = this.vidaPartida * this.defensa / 250;
-		if ((vidaARecuperar + this.vidaPartida)> this.vida)
+		vidaARecuperar = getVidaPartida() * getDefensa() / 250;
+		if ((vidaARecuperar + getVidaPartida())> getVida())
 		{
-			this.vidaPartida = this.vida;
+			setVidaPartida(getVida());
 		}
 		else{
-			this.vidaPartida += vidaARecuperar;
+			setVidaPartida(getVidaPartida()+vidaARecuperar);
 		}
 	}
 	
@@ -117,4 +117,12 @@ public class Personaje {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}	
+	
+	public void setEnergiaPartida(int energiaPartida) {
+		this.energiaPartida = energiaPartida;
+	}
+	
+	public void setVidaPartida(int vidaPartida) {
+		this.vidaPartida = vidaPartida;
+	}
 }
