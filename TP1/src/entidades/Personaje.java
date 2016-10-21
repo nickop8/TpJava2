@@ -4,6 +4,14 @@ public class Personaje {
 	private int codigo, vida, energia, defensa, evasion, ptos_totales;
 	private String nombre;
 	
+	public Personaje(){
+		this.setDefensa(0);
+		this.setVida(0);
+		this.setEnergia(0);
+		this.setEvasion(0);
+		this.setPtos_totales(200);
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}

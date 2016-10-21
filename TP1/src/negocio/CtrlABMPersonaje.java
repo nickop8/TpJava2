@@ -19,6 +19,7 @@ public class CtrlABMPersonaje {
 	}
 	
 	public void add(Personaje p) {
+		p.setPtos_totales(200);
 		dataPer.add(p);
 		/*if(datosValidos(p)){
 			dataPer.add(p);
