@@ -216,7 +216,7 @@ public class ABMCPersonaje {
 		frame.getContentPane().add(exit);
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				frame.setVisible(false);
 			}
 		});
 		

@@ -68,8 +68,18 @@ public class MenuPrincipal {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("Iniciar partida");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ABMCPelea.main(null);
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Salir");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		
 		JButton btnNewButton_2 = new JButton("Gestor de personajes");
 		btnNewButton_2.addActionListener(new ActionListener() {

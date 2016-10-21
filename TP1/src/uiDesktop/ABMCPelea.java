@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -29,22 +30,22 @@ import entidades.Personaje;
 public class ABMCPelea {
 
 	private JFrame frmSeleccinDePersonajes;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField evP1;
+	private JTextField defP1;
+	private JTextField vidaP1;
+	private JTextField energiaP1;
 	private JLabel lblEnerga;
-	private JLabel lblAtaque;
+	private JLabel lblEvP1;
 	private JLabel lblDefensa;
 	private JLabel lblJugador1;
 	private JLabel lblJugador2;
 	private JLabel lblCdigo;
 	private JLabel lblNombre;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField codP1;
+	private JTextField nomP1;
 	private JLabel label;
 	private JLabel label_1;
-	private JLabel label_2;
+	private JLabel lblEvasion;
 	private JLabel label_3;
 	private JTextField textField;
 	private JTextField textField_5;
@@ -94,21 +95,21 @@ public class ABMCPelea {
 		
 		JPanel panel = new JPanel();
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(66, 146, 35, 20);
-		textField_1.setColumns(10);
+		evP1 = new JTextField();
+		evP1.setBounds(66, 146, 35, 20);
+		evP1.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(66, 175, 35, 20);
-		textField_2.setColumns(10);
+		defP1 = new JTextField();
+		defP1.setBounds(66, 175, 35, 20);
+		defP1.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(66, 203, 35, 20);
-		textField_3.setColumns(10);
+		vidaP1 = new JTextField();
+		vidaP1.setBounds(66, 203, 35, 20);
+		vidaP1.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(66, 230, 35, 20);
-		textField_4.setColumns(10);
+		energiaP1 = new JTextField();
+		energiaP1.setBounds(66, 230, 35, 20);
+		energiaP1.setColumns(10);
 		
 		JLabel lblVida = new JLabel("Vida");
 		lblVida.setBounds(30, 205, 20, 14);
@@ -116,8 +117,8 @@ public class ABMCPelea {
 		lblEnerga = new JLabel("Energ\u00EDa");
 		lblEnerga.setBounds(14, 233, 36, 14);
 		
-		lblAtaque = new JLabel("Ataque");
-		lblAtaque.setBounds(15, 149, 35, 14);
+		lblEvP1 = new JLabel("Evasion");
+		lblEvP1.setBounds(15, 149, 41, 14);
 		
 		lblDefensa = new JLabel("Defensa");
 		lblDefensa.setBounds(10, 178, 40, 14);
@@ -144,12 +145,12 @@ public class ABMCPelea {
 		panel.add(lblJugador1);
 		panel.add(lblEnerga);
 		panel.add(lblVida);
-		panel.add(lblAtaque);
+		panel.add(lblEvP1);
 		panel.add(lblDefensa);
-		panel.add(textField_4);
-		panel.add(textField_3);
-		panel.add(textField_2);
-		panel.add(textField_1);
+		panel.add(energiaP1);
+		panel.add(vidaP1);
+		panel.add(defP1);
+		panel.add(evP1);
 		panel.add(lblJugador2);
 		
 		lblCdigo = new JLabel("C\u00F3digo");
@@ -160,15 +161,15 @@ public class ABMCPelea {
 		lblNombre.setBounds(15, 104, 40, 14);
 		panel.add(lblNombre);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(66, 76, 35, 20);
-		panel.add(textField_8);
+		codP1 = new JTextField();
+		codP1.setColumns(10);
+		codP1.setBounds(66, 76, 35, 20);
+		panel.add(codP1);
 		
-		textField_9 = new JTextField();
-		textField_9.setBounds(66, 101, 86, 20);
-		panel.add(textField_9);
-		textField_9.setColumns(10);
+		nomP1 = new JTextField();
+		nomP1.setBounds(66, 101, 86, 20);
+		panel.add(nomP1);
+		nomP1.setColumns(10);
 		
 		label = new JLabel("Energ\u00EDa");
 		label.setBounds(175, 233, 36, 14);
@@ -178,9 +179,9 @@ public class ABMCPelea {
 		label_1.setBounds(191, 205, 20, 14);
 		panel.add(label_1);
 		
-		label_2 = new JLabel("Ataque");
-		label_2.setBounds(176, 149, 35, 14);
-		panel.add(label_2);
+		lblEvasion = new JLabel("Evasion");
+		lblEvasion.setBounds(176, 149, 41, 14);
+		panel.add(lblEvasion);
 		
 		label_3 = new JLabel("Defensa");
 		label_3.setBounds(171, 178, 40, 14);
@@ -227,7 +228,10 @@ public class ABMCPelea {
 		btnElegirJ = new JButton("Elegir J1...");
 		btnElegirJ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				j1= new Personaje();
 				ElegirPersonaje.main(j1);
+				if(j1.getCodigo()!=0) mapear(j1);
+				
 			}
 		});
 		btnElegirJ.setBounds(40, 36, 89, 23);
@@ -243,12 +247,40 @@ public class ABMCPelea {
 		panel.add(btnElegirJ_1);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmSeleccinDePersonajes.setVisible(false);
+			}
+		});
 		btnCancelar.setBounds(242, 271, 89, 23);
 		panel.add(btnCancelar);
 		
 		btnpelear = new JButton("\u00A1Pelear!");
+		btnpelear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Pelea.main(null);
+				frmSeleccinDePersonajes.setVisible(false);
+			}
+		});
 		btnpelear.setBounds(143, 271, 89, 23);
 		panel.add(btnpelear);
 		frmSeleccinDePersonajes.getContentPane().setLayout(groupLayout);
+	};
+	
+	public void mapear(Personaje j){
+			System.out.println(j.getCodigo() + j.getNombre());
+			codP1.setText(String.valueOf(j.getCodigo()));
+			nomP1.setText(String.valueOf(j.getNombre()));
+			energiaP1.setText(String.valueOf(j.getEnergia()));
+			defP1.setText(String.valueOf(j.getDefensa()));
+			vidaP1.setText(String.valueOf(j.getVida()));
+			evP1.setText(String.valueOf(j.getEvasion()));
+		
+		
+		
 	}
+	public void add(Personaje j){
+			mapear(j);
+	}
+	
 }

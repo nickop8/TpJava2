@@ -3,6 +3,7 @@ package uiDesktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -20,6 +21,7 @@ import entidades.Personaje;
 
 import javax.swing.ListSelectionModel;
 
+import negocio.CtrlABMPersonaje;
 import utils.ApplicationException;
 
 import java.awt.event.ActionListener;
@@ -31,7 +33,8 @@ public class ElegirPersonaje {
 	private JTable tblListaPersonajes;
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
-	private Personaje j;
+	private Personaje j=null;
+	private ABMCPelea pelea;
 
 	/**
 	 * Launch the application.
@@ -63,6 +66,7 @@ public class ElegirPersonaje {
 	    catch(Exception e){ 
 	    }
 		initialize();
+		pelea = new ABMCPelea();
 	}
 
 	/**
@@ -82,11 +86,21 @@ public class ElegirPersonaje {
 		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int row = tblListaPersonajes.getSelectedRow();	
+				String id=tblListaPersonajes.getValueAt(row, 0).toString();
+				int cod=Integer.parseInt(id);
+				j=getPersonaje(cod);
+				//pelea.add(j);
 				
 			}
 		});
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmElegirPersonaje.setVisible(false);
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -123,11 +137,14 @@ public class ElegirPersonaje {
 		}
 	}
 	
-	public void getPersonaje(int codigo){
+	public Personaje getPersonaje(int codigo){
 		
 		DataPersonaje dp = new DataPersonaje();
 		j = dp.getByCodigo(codigo);
-		
-		return;
+		return j;
 	}
+	
+	
 }
+
+
