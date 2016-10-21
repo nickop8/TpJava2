@@ -48,26 +48,43 @@ public class Pelea {
 	 * Create the application.
 	 */
 	public Pelea(Personaje j1, Personaje j2) {
+		String turno = "P1";
 		try 
 	    { 
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
 	    } 
 	    catch(Exception e){ 
 	    }
-		p1 = j1;
-		p2 = j2;
+		p1 = j1; //jugador que tiene el turno
+		p2 = j2;  //oponente
 		p1.setEnergiaPartida();
 		p2.setEnergiaPartida();
 		p1.setVidaPartida();
 		p2.setVidaPartida();
-		
+		Personaje aux= new Personaje();
 		initialize();
 		
-		while(p1.getVidaPartida() != 0 && p2.getVidaPartida() != 0){
-			if(p1.getVidaPartida()==0){
-			
-					JOptionPane.showMessageDialog(null, "Felicitaciones "+ p2.getNombre()+"!! Has ganado, eres un terremoto cósmico!!");
+		
+		while(p1.getVidaPartida() != 0 && p2.getVidaPartida() != 0)
+		{
+			if(turno == "P1"){
+				
+				
+				
+				turno="P2";
+			}else{
+				
 			}
+			aux = p1;
+			p1 = p2;
+			p2 = aux;
+		}
+		
+		if(p1.getVidaPartida()==0){
+			
+			JOptionPane.showMessageDialog(null, "Felicitaciones "+ p2.getNombre()+"!! Has ganado, eres un terremoto cósmico!!");
+		}else{
+			JOptionPane.showMessageDialog(null, "Felicitaciones "+ p1.getNombre()+"!! Has ganado, eres un terremoto cósmico!!");
 		}
 	}
 	
@@ -142,6 +159,11 @@ public class Pelea {
 		textField_4.setColumns(10);
 		
 		JButton btnAtacar = new JButton("Atacar");
+		btnAtacar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnAtacar.setBounds(169, 179, 89, 23);
 		frame.getContentPane().add(btnAtacar);
 		

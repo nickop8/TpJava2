@@ -34,6 +34,7 @@ public class ElegirPersonaje {
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
 	private Personaje j=null;
+	private MenuPelea mp;
 
 	/**
 	 * Launch the application.
@@ -86,12 +87,17 @@ public class ElegirPersonaje {
 		
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				seleccionar();
+				
 				int row = tblListaPersonajes.getSelectedRow();	
 				String id=tblListaPersonajes.getValueAt(row, 0).toString();
 				int cod=Integer.parseInt(id);
 				j=getPersonaje(cod);
 				
 			}
+
+			
 		});
 		
 		btnCancelar.addActionListener(new ActionListener() {
@@ -154,7 +160,27 @@ public class ElegirPersonaje {
 		frmElegirPersonaje.setVisible(true);
 		return j;
 	}
+
+	public void setCaller(MenuPelea menuPelea) {
+		mp = menuPelea;
+	}
 	
+	public MenuPelea getCaller(){
+		return mp;
+	}
+	
+	private void seleccionar() {
+		int row = tblListaPersonajes.getSelectedRow();	
+		String id=tblListaPersonajes.getValueAt(row, 0).toString();
+		int cod=Integer.parseInt(id);
+		j=getPersonaje(cod);
+		this.getCaller().addPersonaje(j);
+		this.frmElegirPersonaje.setVisible(false);
+	}
+
+	public void show(boolean b) {
+		frmElegirPersonaje.setVisible(b);
+	}
 	
 }
 

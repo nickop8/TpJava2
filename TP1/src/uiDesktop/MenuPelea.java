@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -60,6 +61,7 @@ public class MenuPelea {
 	private JButton btnCancelar;
 	private JButton btnpelear;
 	private Personaje j1, j2;
+	private int jugador;
 
 	/**
 	 * Launch the application.
@@ -83,6 +85,12 @@ public class MenuPelea {
 	public MenuPelea() {
 		j1 = new Personaje();
 		j2 = new Personaje();
+		try 
+	    { 
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
+	    } 
+	    catch(Exception e){ 
+	    }
 		initialize();
 	}
 
@@ -230,9 +238,8 @@ public class MenuPelea {
 		btnElegirJ1 = new JButton("Elegir J1...");
 		btnElegirJ1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*ElegirPersonaje ep = new ElegirPersonaje();
-				j1 = ep.getPersonajeElegido();
-				if(j1.getCodigo()!=0) mapearJ1(j1);*/
+				jugador = 1;
+				seleccionarPersonaje();
 				
 			}
 		});
@@ -242,11 +249,8 @@ public class MenuPelea {
 		btnElegirJ2 = new JButton("Elegir J2...");
 		btnElegirJ2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*ElegirPersonaje ep = new ElegirPersonaje();
-				ep.run();
-				j2 = ep.getPersonajeElegido();
-				if(j2.getCodigo()!=0) mapearJ2(j2);*/
-
+				jugador = 2;
+				seleccionarPersonaje();
 				}
 		});
 		btnElegirJ2.setBounds(200, 36, 89, 23);
@@ -264,7 +268,7 @@ public class MenuPelea {
 		btnpelear = new JButton("\u00A1Pelear!");
 		btnpelear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Pelea.main(j1, j2);
+				Pelea.main(j1,j2);
 				frmSeleccinDePersonajes.setVisible(false);
 			}
 		});
@@ -273,29 +277,42 @@ public class MenuPelea {
 		frmSeleccinDePersonajes.getContentPane().setLayout(groupLayout);
 	};
 	
-	public void mapearJ1(Personaje j){
-			System.out.println(j.getCodigo() + j.getNombre());
-			codP1.setText(String.valueOf(j.getCodigo()));
-			nomP1.setText(String.valueOf(j.getNombre()));
-			energiaP1.setText(String.valueOf(j.getEnergia()));
-			defP1.setText(String.valueOf(j.getDefensa()));
-			vidaP1.setText(String.valueOf(j.getVida()));
-			evP1.setText(String.valueOf(j.getEvasion()));
+	public void mapearJ1(){
+			System.out.println(j1.getCodigo() + j1.getNombre());
+			codP1.setText(String.valueOf(j1.getCodigo()));
+			nomP1.setText(String.valueOf(j1.getNombre()));
+			energiaP1.setText(String.valueOf(j1.getEnergia()));
+			defP1.setText(String.valueOf(j1.getDefensa()));
+			vidaP1.setText(String.valueOf(j1.getVida()));
+			evP1.setText(String.valueOf(j1.getEvasion()));
 		
 	}
 	
-	public void mapearJ2(Personaje j){
-		System.out.println(j.getCodigo() + j.getNombre());
-		codP2.setText(String.valueOf(j.getCodigo()));
-		nomP2.setText(String.valueOf(j.getNombre()));
-		energiaP2.setText(String.valueOf(j.getEnergia()));
-		defP2.setText(String.valueOf(j.getDefensa()));
-		vidaP2.setText(String.valueOf(j.getVida()));
-		evP2.setText(String.valueOf(j.getEvasion()));
+	public void mapearJ2(){
+		System.out.println(j2.getCodigo() + j2.getNombre());
+		codP2.setText(String.valueOf(j2.getCodigo()));
+		nomP2.setText(String.valueOf(j2.getNombre()));
+		energiaP2.setText(String.valueOf(j2.getEnergia()));
+		defP2.setText(String.valueOf(j2.getDefensa()));
+		vidaP2.setText(String.valueOf(j2.getVida()));
+		evP2.setText(String.valueOf(j2.getEvasion()));
 	}
 		
-	public void add(Personaje j){
-		//	mapear(j);
-	
+	public void addPersonaje(Personaje j){
+		if (jugador == 1){
+			j1 = j;
+			if(j1.getCodigo()!=0) mapearJ1();
+		}
+		if (jugador == 2){
+			j2 = j;
+			if(j2.getCodigo()!=0) mapearJ2();
+		}
 	}
+	
+	private void seleccionarPersonaje(){
+		ElegirPersonaje frmElegirPersonaje = new ElegirPersonaje();
+		frmElegirPersonaje.setCaller(this);
+		frmElegirPersonaje.show(true);
+	}
+
 }
